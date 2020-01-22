@@ -98,10 +98,15 @@ Un ejemplo de ello puede verse a continuación:
 | id_show |  string | (id_usuario) |
 
 ###### Ejemplo signer:
+Valores posibles de "role": `PERSONA FISICA` , `PERSONA JURIDICA`
+
+Valores posibles de "cargo": `Administrador` , `Gerente`, `Responsable`
+
+A continuación se muestra un ejemplo con dos firmantes:
 ```json
 [
   {
-    "role": "PERSONA_FISICA",
+    "role": "PERSONA FISICA",
     "nombre": "Jhon Smith",
     "nif": "12345678A",
     "cargo": "Gerente",
@@ -109,7 +114,17 @@ Un ejemplo de ello puede verse a continuación:
     "telefono": 666666666,
     "empresa": "",
     "cif": ""
-  }  
+  },
+  {
+    "role": "PERSONA FISICA",
+    "nombre": "Jhon Smith 2",
+    "nif": "98765432B",
+    "cargo": "Responsable",
+    "email": "prueba2@gmail.com",
+    "telefono": 777777777,
+    "empresa": "",
+    "cif": ""
+  } 
 ]
 ```
 
@@ -119,12 +134,13 @@ Un ejemplo de ello puede verse a continuación:
 | -----------------| -------------- | --------------- | 
 | error    | bool  | true/false |
 | message     | string| (mensaje que aporta información adicional) |
-| data     | string| token |
+| data     | string| (csv del documento) |
 
 ```json
 {
     "error": false,
-    "data": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    "message": "Documento Enviado",
+    "data": "xxxxxxx"
 }
 ```
 
