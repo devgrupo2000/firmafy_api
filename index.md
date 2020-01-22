@@ -1,37 +1,209 @@
-## Welcome to GitHub Pages
+## Firmafy para desarrolladores
 
-You can use the [editor on GitHub](https://github.com/devgrupo2000/firmafy_api/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+La api de firmafy se ha planteado como una herramienta multiplataforma que permitirá a nuestros clientes la integración de nuestro servicio con sus sistemas, de manera que puedan enviar documentación a sus clientes, comprobar el estado de las firmas, y demás operaciones mediante una interfaz rápida, segura, y fácil de integrar.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
+### Empezamos la integración: Login
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+##### Descripción: 
+Lo primero que debemos obtener para comenzar a operar con la API de Firmafy es el token que nos autenticará en el sistema. 
+La validez del token será de 4 horas.
 
-```markdown
-Syntax highlighted code block
+Un ejemplo de ello puede verse a continuación:
 
-# Header 1
-## Header 2
-### Header 3
+##### URL:
+`https://app.firmafy.com/ApplicationProgrammingInterface.php`
+##### Método:
+`POST`
+##### Parámetros:
 
-- Bulleted
-- List
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| -----------------| -------------- | --------------- | 
+| action   | string | login |
+| usuario  | string | (su usuario) |
+| password | string | (su clave) |
 
-1. Numbered
-2. List
+##### Respuesta
 
-**Bold** and _Italic_ and `Code` text
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| -----------------| -------------- | --------------- | 
+| error    | bool  | true/false |
+| data     | string| token |
 
-[Link](url) and ![Image](src)
+```json
+{
+    "error": false,
+    "data": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### Obtener id usuario (id_show)
 
-### Jekyll Themes
+##### Descripción: 
+Además de obtener el token que nos permitirá autenticarnos en futuras peticiones, necesitaremos saber cual es nuestro 
+id de usuario (id_show).
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/devgrupo2000/firmafy_api/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
-### Support or Contact
+##### URL:
+`https://app.firmafy.com/ApplicationProgrammingInterface.php`
+##### Método:
+`POST`
+##### Parámetros:
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| -----------------| -------------- | --------------- | 
+| action   | string | Consultar_Cliente_Nif |
+| token  | string | (su token) |
+| cif | string | (su cif/dni) |
+
+##### Respuesta
+
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| -----------------| -------------- | --------------- | 
+| error    | bool  | true/false |
+| message     | string| (mensaje que aporta información adicional) |
+| data     | Object| (información del usuario entre la que está su id_show) |
+
+```json
+    "data": {
+        ...
+        "id_show": "25d122ba412fda5eed63730c9f8c25f3"
+    }'
+```
+
+
+### Solicitar firma
+
+##### Descripción: 
+Una vez estemos autenticados y hayamos obtenido nuestro token, podremos comenzar a solicitar las firmas de nuestros 
+clientes al documento que elijamos. Para ello, haremos uso de la plantilla previamente creada en
+[app.firmafy.com](https://app.firmafy.com), en la cual ya habremos indicado la posición de las firmas para el documento
+que nos interese enviar.
+
+Un ejemplo de ello puede verse a continuación:
+
+##### URL:
+`https://app.firmafy.com/ApplicationProgrammingInterface.php`
+##### Método:
+`POST`
+##### Parámetros:
+
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| -----------------| -------------- | --------------- | 
+| action   | string | Solicitar_Firma |
+| token  | string | (su token) |
+| signer | array | (array con los firmantes en json) |
+| pdf |  CURLFile | (documento original a firmar) |
+| template_name |  string | (nombre plantilla) |
+| id_show |  string | (id_usuario) |
+
+###### Ejemplo signer:
+```json
+[
+  {
+    "role": "PERSONA_FISICA",
+    "nombre": "Jhon Smith",
+    "nif": "12345678A",
+    "cargo": "Gerente",
+    "email": "prueba@gmail.com",
+    "telefono": 666666666,
+    "empresa": "",
+    "cif": ""
+  }  
+]
+```
+
+##### Respuesta
+
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| -----------------| -------------- | --------------- | 
+| error    | bool  | true/false |
+| message     | string| (mensaje que aporta información adicional) |
+| data     | string| token |
+
+```json
+{
+    "error": false,
+    "data": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}
+```
+
+##### Excepciones
+Si se produjese alguna excepción, obtendríamos en la respuesta el valor de `error` a `true` y el valor de `message` 
+variará en función de la excepción producida, aportando información sobre la misma, para que podamos depurar dicho error.
+
+Ejemplo de excepciones controladas:
+
+- Si el número de páginas enviadas supera al de la plantilla creada, se obtendrá el mensaje 
+`Número de páginas distinto al de la plantilla`
+- Si la plantilla no existe o el número de firmantes es superior al de la plantilla, el mensaje será `Plantilla no encontrada` 
+
+
+### Consultar estado envío
+
+##### Descripción: 
+Una vez solicitadas la/s firma/s para nuestro/s documento/s, nos interesará conocer el estado de las mismas, para, por ejemplo,
+conocer cuantos firmantes han firmado, o quien/es falta/n por firmar.
+
+
+##### URL:
+`https://app.firmafy.com/ApplicationProgrammingInterface.php`
+##### Método:
+`POST`
+##### Parámetros:
+
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| -----------------| -------------- | --------------- | 
+| action   | string | estado_envio |
+| token  | string | (su token) |
+| csv | string | (csv del documento) |
+
+
+##### Respuesta
+
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| -----------------| -------------- | --------------- | 
+| error    | bool  | true/false |
+| message     | string | (mensaje que aporta información adicional) |
+| data     | Object | (información sobre la solicitud de firma) |
+
+```json
+    "data": {
+        "tipo": "Firmar Documento",
+        "solicitud": "0000-00-00 00:00:00",
+        "firmado": "0000-00-00 00:00:00",
+        "estado": "TRAMITADO",
+        "asunto": "Firmafy | Solicitud de Firma",
+        "mensaje": "<p><br></p><p>Le enviamos el documento para que lo firme a través de nuestro sistema de firma avanzada <b>Firmafy</b>. Con este sistema podrás firmar tus documentos de una forma rápida, segura y legal. </p><p>Cualquier consulta, no dudes en contactar con nosotros.</p>",
+        "csv": "xxxxxxxxxxxxx",
+        "size": "0000000",
+        "remitente": "xxxxxxxxxx",
+        "url_documento_firmado": "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "url_documento_auditoria": "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "url_documento_origial": "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "firmante": [
+            {
+                "nombre": "xxxxxxxxxxxxxxxxxxxxxxxx",
+                "cargo": "xxxxx",
+                "telefono": "666666666",
+                "nif": "xxxxxxxxx",
+                "email": "xxxxxxxxx@gmail.com",
+                "link": "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "link_usado": "1",
+                "estado": "INACTIVE",
+                "conformidad": "Aceptó y Firmó",
+                "firmado": "0000-00-00 00:00:00"
+            }
+        ]
+    }
+```
+
+##### Excepciones
+Si se produjese alguna excepción, obtendríamos en la respuesta el valor de `error` a `true` y el valor de `message` 
+variará en función de la excepción producida, aportando información sobre la misma, para que podamos depurar dicho error.
+
+Ejemplo de excepciones controladas:
+
+- Si el csv fuese incorrecto el mensaje recibido sería `CSV no encontrado.`
+
+
