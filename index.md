@@ -3,6 +3,7 @@
 La api de firmafy se ha planteado como una herramienta multiplataforma que permitirá a nuestros clientes la integración de nuestro servicio con sus sistemas, de manera que puedan enviar documentación a sus clientes, comprobar el estado de las firmas, y demás operaciones mediante una interfaz rápida, segura, y fácil de integrar.
 
 
+
 ### Empezamos la integración: Login
 
 ##### Descripción: 
@@ -223,3 +224,97 @@ Ejemplo de excepciones controladas:
 - Si el csv fuese incorrecto el mensaje recibido sería `CSV no encontrado.`
 
 
+### Registro y asociación de plan
+
+##### Descripción: 
+__Para realizar esta acción es necesario contar con los privilegios correspondientes.__ 
+
+Cuando queramos registrar a usuarios, y seguidamente asociarle un plan deberemos hacerlo de la siguiente manera:
+
+
+##### URL:
+`https://app.firmafy.com/ApplicationProgrammingInterface.php`
+##### Método:
+`POST`
+##### Parámetros:
+
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| -----------------| -------------- | --------------- | 
+| action   | string | nc_nuevo_usuario_plan |
+| token  | string | (su token) |
+| data | string | (json<sup>1</sup>) |
+
+##### Formato JSON<sup>1</sup>:
+A continuación se muestran dos ejemplos de la estructura que debe tener el parametro `data` en `json`.
+
+__Para registrar y asociarle el plan a una persona física :__
+```
+{
+  "datos_usuario": {
+    "email": "XXXXX"
+  },
+  "datos_contacto": {
+    "dni": "XXXXX",
+    "nombre": "XXXXX",
+    "primer_apellido": "XXXXX",
+    "segundo_apellido": "XXXXX",
+    "cargo": 1,
+    "direccion": "XXXXX",
+    "ciudad": "XXXXX",
+    "codigo_postal": "XXXXX",
+    "movil": 000000000,
+    "email": "XXXXX"
+  },
+  "producto": {
+    "id_producto": "XXXXX"
+  }
+}
+```
+__Para registrar y asociarle el plan a una empresa:__
+```
+{
+     "datos_usuario": {
+       "email": "XXXXX"
+     },
+     "datos_facturacion": {
+       "nif": "XXXXX"
+     },
+     "datos_contacto": {
+       "empresa": "XXXXX",
+       "dni": "XXXXX",
+       "nombre": "XXXXX",
+       "primer_apellido": "XXXXX",
+       "segundo_apellido": "XXXXX",
+       "cargo": 1,
+       "direccion": "XXXXX",
+       "ciudad": "XXXXX",
+       "codigo_postal": "XXXXX",
+       "movil": 000000000,
+       "email": "XXXXX"
+     },
+     "producto": {
+       "id_producto": "XXXXX"
+     }
+   }
+```
+
+##### Respuesta
+
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| -----------------| -------------- | --------------- | 
+| error    | bool  | true/false |
+| message     | string | (mensaje que aporta información adicional) |
+| data     | string | (información sobre el proceso) |
+
+
+##### Excepciones
+Si se produjese alguna excepción, obtendríamos en la respuesta el valor de `error` a `true` y el valor de `message` 
+variará en función de la excepción producida, aportando información sobre la misma, para que podamos depurar dicho error.
+
+Ejemplo de excepciones controladas:
+
+- Si se intentase registrar al usuario en un plan gratuito que ya ha disfrutado, `message` contendría el mensaje `Acción no realizada a usuario existente: El usuario ya ha disfrutado del plan solicitado.` y `data` `El usuario ya ha disfrutado del plan solicitado. Puede ponerse en contacto con Firmafy`
+- Cuando se indique un `id_producto` incorrecto, en `message` se obtendría `El nombre del plan indicado no existe`
+- Para cuando alguno de los datos no sean correctos, podremos saberlo porque `message` contendrá un resumen de aquellos datos incorrectos: `Error procesando el JSON: JSON incorrecto. El DNI no es correcto` y `data` `datos_usuario: Los datos de usuario son correctos | datos_contacto: [datos_contacto] El dni no es correcto | datos_facturacion: Los datos de facturación de LA PERSONA FÍSICA son correctos | datos_producto: El producto indicado es correcto`
+- Si la estructura JSON es incorrecta `El formato json no es correcto`
+- Si el email indicado tiene asociado un cif/nif distinto, el mensaje que obtendríamos sería `Usuario no creado. El email indicado tiene asociado otro dni. Por favor, ponte en contacto con firmafy.`
