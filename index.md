@@ -95,6 +95,7 @@ Un ejemplo de ello puede verse a continuación:
 | token  | string | (su token) |
 | signer | array | (array con los firmantes en json) |
 | pdf |  CURLFile | (documento original a firmar) |
+| template_session |  string | false  |
 | template_name |  string | (nombre plantilla) |
 | id_show |  string | (id_usuario) |
 | type_notification |  string | email,sms |
@@ -102,6 +103,8 @@ Un ejemplo de ello puede verse a continuación:
 
 ###### Ejemplo signer:
 Valores posibles de "role": `PERSONA FISICA` , `PERSONA JURIDICA`
+
+Importante - template_sessión: Indica que las plantillas pertenecen al id_show , no al usuario logueado en la clase Firmafy.php
 
 Importante -  type_notification: para poder notificar por sms , debe de tener SMS disponibles, de lo contrario se enviará por email.
 
