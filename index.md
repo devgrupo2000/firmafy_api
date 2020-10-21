@@ -158,70 +158,22 @@ Ejemplo de excepciones controladas:
 
 ### Consultar estado envío
 
-##### Descripción: 
-Una vez solicitadas la/s firma/s para nuestro/s documento/s, nos interesará conocer el estado de las mismas, para, por ejemplo,
-conocer cuantos firmantes han firmado, o quien/es falta/n por firmar.
+Agregar Respuesta Automática (Webhook)
 
+Descripción:
+Devuelve automáticamente la respuesta al final de proceso de firma. Indicando el CSV del documento y el estado del mismo.
+Por ejemplo https://dominio.com/webhook_firmafy ?csv=XXX&estado=FIRMADO
 
-##### URL:
-`https://app.firmafy.com/ApplicationProgrammingInterface.php`
-##### Método:
-`POST`
-##### Parámetros:
+URL:
+https://app.firmafy.com/ApplicationProgrammingInterface.php
 
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
-| -----------------| -------------- | --------------- | 
-| action   | string | estado_envio |
-| token  | string | (su token) |
-| csv | string | (csv del documento) |
+Método:
+POST
 
-
-##### Respuesta
-
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
-| -----------------| -------------- | --------------- | 
-| error    | bool  | true/false |
-| message     | string | (mensaje que aporta información adicional) |
-| data     | Object | (información sobre la solicitud de firma) |
-
-```json
-    "data": {
-        "tipo": "Firmar Documento",
-        "solicitud": "0000-00-00 00:00:00",
-        "firmado": "0000-00-00 00:00:00",
-        "estado": "TRAMITADO",
-        "asunto": "Firmafy | Solicitud de Firma",
-        "mensaje": "<p><br></p><p>Le enviamos el documento para que lo firme a través de nuestro sistema de firma avanzada <b>Firmafy</b>. Con este sistema podrás firmar tus documentos de una forma rápida, segura y legal. </p><p>Cualquier consulta, no dudes en contactar con nosotros.</p>",
-        "csv": "xxxxxxxxxxxxx",
-        "size": "0000000",
-        "remitente": "xxxxxxxxxx",
-        "url_documento_firmado": "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        "url_documento_auditoria": "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        "url_documento_origial": "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        "firmante": [
-            {
-                "nombre": "xxxxxxxxxxxxxxxxxxxxxxxx",
-                "cargo": "xxxxx",
-                "telefono": "666666666",
-                "nif": "xxxxxxxxx",
-                "email": "xxxxxxxxx@gmail.com",
-                "link": "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-                "link_usado": "1",
-                "estado": "INACTIVE",
-                "conformidad": "Aceptó y Firmó",
-                "firmado": "0000-00-00 00:00:00"
-            }
-        ]
-    }
-```
-
-##### Excepciones
-Si se produjese alguna excepción, obtendríamos en la respuesta el valor de `error` a `true` y el valor de `message` 
-variará en función de la excepción producida, aportando información sobre la misma, para que podamos depurar dicho error.
-
-Ejemplo de excepciones controladas:
-
-- Si el csv fuese incorrecto el mensaje recibido sería `CSV no encontrado.`
+*Parámetros: *
+action (string) add_edit_webhook
+id_show (string) id_usuario
+url_webhook (string) url donde enviaremos la respuesta
 
 
 ### Registro y asociación de plan
