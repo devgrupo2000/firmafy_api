@@ -170,10 +170,15 @@ https://app.firmafy.com/ApplicationProgrammingInterface.php
 Método:
 POST
 
-*Parámetros: *
-action (string) add_edit_webhook
-id_show (string) id_usuario
-url_webhook (string) url donde enviaremos la respuesta
+##### Parámetros:
+
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| -----------------| -------------- | --------------- | 
+| action   | string | add_edit_webhook |
+| token  | string | (su token) |
+| id_show | string | id_usuario |
+| url_webhook | string | url donde enviaremos la respuesta |
+
 
 
 ### Registro y asociación de plan
