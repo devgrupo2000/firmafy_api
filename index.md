@@ -97,11 +97,17 @@ Un ejemplo de ello puede verse a continuación:
 | pdf |  CURLFile | (documento original a firmar) |
 | template_name |  string | (nombre plantilla) |
 | id_show |  string | (id_usuario) |
+| type_notification |  string | email,sms |
+| mail_notification |  bool | false |
 
 ###### Ejemplo signer:
 Valores posibles de "role": `PERSONA FISICA` , `PERSONA JURIDICA`
 
-Valores posibles de "cargo": `Administrador` , `Gerente`, `Responsable`
+Importante -  type_notification: para poder notificar por sms , debe de tener SMS disponibles, de lo contrario se enviará por email.
+
+Importante - mail_notification: se omite enviar el enlace al cliente.
+
+Valores posibles de "cargo": `Administrador` , `Gerente`, `Responsable` , cualquier dato identificativo para el firmante.
 
 A continuación se muestra un ejemplo con dos firmantes:
 ```json
