@@ -110,7 +110,7 @@ Importante -  type_notification: para poder notificar por sms , debe de tener SM
 
 Importante - mail_notification: se omite enviar el enlace al cliente.
 
-Valores posibles de "cargo": `Administrador` , `Gerente`, `Responsable` , cualquier dato identificativo para el firmante.
+Valores posibles de "cargo": `Administrador` , `Interesado`, `Empresario` etc...  (cualquier dato identificativo para el firmante).
 
 A continuación se muestra un ejemplo con dos firmantes:
 ```json
