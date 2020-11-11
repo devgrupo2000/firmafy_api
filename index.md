@@ -94,7 +94,7 @@ Un ejemplo de ello puede verse a continuación:
 | action   | string | Solicitar_Firma |
 | token  | string | (su token) |
 | signer | array | (array con los firmantes en json) |
-| pdf |  CURLFile | (documento original a firmar) |
+| pdf |  *CURLFile | (documento original a firmar) |
 | template_session |  string | false  |
 | template_name |  string | (nombre plantilla) |
 | id_show |  string | (id_usuario) |
@@ -102,6 +102,11 @@ Un ejemplo de ello puede verse a continuación:
 | mail_notification |  bool | false |
 
 ###### Ejemplo signer:
+
+*Se puede optar por enviar el PDF por base 64, en ese caso hay que sustuir el parámetro pdf por:
+pdf_base64 (string) PDF codificado en base64 y añadir
+pdf_name (string) Nombre del archivo
+
 Valores posibles de "role": `PERSONA FISICA` , `PERSONA JURIDICA`
 
 Importante - template_sessión: Indica que las plantillas pertenecen al id_show , no al usuario logueado en la clase Firmafy.php
