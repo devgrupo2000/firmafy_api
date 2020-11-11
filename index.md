@@ -105,9 +105,9 @@ Un ejemplo de ello puede verse a continuación:
 
 *Se puede optar por enviar el PDF por base 64, en ese caso hay que sustuir el parámetro pdf por:
 
-pdf_base64 (string) PDF codificado en base64 y añadir
+`pdf_base64` (string) PDF codificado en base64 y añadir
 
-pdf_name (string) Nombre del archivo
+`pdf_name` (string) Nombre del archivo
 
 Valores posibles de "role": `PERSONA FISICA` , `PERSONA JURIDICA`
 
