@@ -95,11 +95,11 @@ Un ejemplo de ello puede verse a continuación:
 | token  | string | (su token) |
 | signer | array | (array con los firmantes en json) |
 | pdf |  *CURLFile | (documento original a firmar) |
-| template_session |  string | false  |
+| template_session |  string | true/false  |
 | template_name |  string | (nombre plantilla) |
 | id_show |  string | (id_usuario) |
 | type_notification |  string | email,sms |
-| mail_notification |  bool | false |
+| mail_notification |  bool | true/false |
 
 ###### Ejemplo signer:
 
