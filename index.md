@@ -100,7 +100,7 @@ Un ejemplo de ello puede verse a continuación:
 | id_show |  string | (id_usuario) |
 | type_notifications |  string | email,sms |
 | mail_notification |  bool | true/false |
-| fecha_vencimiento | Y-m-d H:i:s |
+| fecha_vencimiento | datetime | Y-m-d H:i:s |
 
 ###### Ejemplo signer:
 
