@@ -100,6 +100,7 @@ Un ejemplo de ello puede verse a continuación:
 | id_show |  string | (id_usuario) |
 | type_notifications |  string | email,sms |
 | mail_notification |  bool | true/false |
+| fecha_vencimiento | Y-m-d H:i:s |
 
 ###### Ejemplo signer:
 
@@ -130,7 +131,8 @@ A continuación se muestra un ejemplo con dos firmantes:
     "email": "prueba@gmail.com",
     "telefono": 666666666,
     "empresa": "",
-    "cif": ""
+    "cif": "",
+    "type_notifications: "email"
   },
   {
     "role": "PERSONA FISICA",
@@ -140,7 +142,8 @@ A continuación se muestra un ejemplo con dos firmantes:
     "email": "prueba2@gmail.com",
     "telefono": 777777777,
     "empresa": "",
-    "cif": ""
+    "cif": "",
+    type_notifications:"email,sms"
   } 
 ]
 ```
