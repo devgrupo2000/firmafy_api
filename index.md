@@ -111,11 +111,11 @@ Un ejemplo de ello puede verse a continuación:
 
 Valores posibles de "role": `PERSONA FISICA` , `PERSONA JURIDICA`
 
-Importante - template_sessión: Indica que las plantillas pertenecen al id_show , no al usuario logueado en la clase Firmafy.php
+*Importante - template_sessión: Indica que las plantillas pertenecen al id_show , no al usuario logueado en la clase Firmafy.php
 
-Importante -  type_notification: para poder notificar por sms , debe de tener SMS disponibles, de lo contrario se enviará por email.
+*Importante -  type_notifications: para poder notificar por sms , debe de tener SMS disponibles, de lo contrario se enviará por email.
 
-Importante - mail_notification: se omite enviar el enlace al cliente.
+*Importante - mail_notification: se omite enviar el enlace al cliente.
 
 Valores posibles de "cargo": `Administrador` , `Interesado`, `Empresario` etc...  (cualquier dato identificativo para el firmante).
 
