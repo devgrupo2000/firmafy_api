@@ -98,7 +98,7 @@ Un ejemplo de ello puede verse a continuación:
 | template_session |  string | true/false  |
 | template_name |  string | (nombre plantilla) |
 | id_show |  string | (id_usuario) |
-| type_notification |  string | email,sms |
+| type_notifications |  string | email,sms |
 | mail_notification |  bool | true/false |
 
 ###### Ejemplo signer:
