@@ -137,7 +137,7 @@ A continuación se muestra un ejemplo con dos firmantes:
     "telefono": 666666666,
     "empresa": "",
     "cif": "",
-    "type_notifications: "email"
+    "type_notifications": "email"
   },
   {
     "role": "PERSONA FISICA",
@@ -148,7 +148,7 @@ A continuación se muestra un ejemplo con dos firmantes:
     "telefono": 777777777,
     "empresa": "",
     "cif": "",
-    type_notifications:"email,sms"
+    "type_notifications": "email,sms"
   } 
 ]
 ```
