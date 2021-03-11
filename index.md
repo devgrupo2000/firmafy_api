@@ -95,7 +95,6 @@ Un ejemplo de ello puede verse a continuación:
 | token  | string | (su token) |
 | signer | array | (array con los firmantes en json) |
 | pdf |  *CURLFile | (documento original a firmar) |
-| template_session |  string | true/false  |
 | template_name |  string | (nombre plantilla) |
 | send_form |  bool | true/false) |
 | id_show |  string | (id_usuario) |
@@ -112,8 +111,6 @@ Un ejemplo de ello puede verse a continuación:
 `pdf_name` (string) Nombre del archivo
 
 Valores posibles de "role": `PERSONA FISICA` , `PERSONA JURIDICA`
-
-*Importante - template_sessión: Indica que las plantillas pertenecen al id_show , no al usuario logueado en la clase Firmafy.php
 
 *Importante - send_form: Indica que se trata de una plantilla de FORMULARIO, por lo que el firmante recibirá un formulario a rellenar.
 
