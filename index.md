@@ -182,9 +182,37 @@ Ejemplo de excepciones controladas:
 Agregar Respuesta Automática (Webhook)
 
 Descripción:
-Devuelve automáticamente la respuesta al final de proceso de firma. Indicando el CSV del documento y el estado del mismo.
-Por ejemplo https://dominio.com/webhook_firmafy ?csv=XXX&estado=FIRMADO
+Devuelve automáticamente la respuesta al final de proceso de firma. Indicando el CSV del documento, rutas de descarga de documento firmado, ruta de descarga de auditoría e información de los firmantes.
+Un ejemplo de la estructura que se devuelve es la siguiente:
 
+```json
+{
+ "type":"Firmar Documento",
+ "daterequest":"2021-02-09 16:02:34",
+ "datesign":"2021-02-09 16:07:25",
+ "status":"FIRMADO",
+ "subject":"Firmafy | Solicitud de Firma",
+ "csv":"xxxxxxxxxxxxxx",
+ "size":"35687",
+ "sender":"SYSTEM TEST",
+ "docsigned":"https://drive.google.com/uc?id=xxxxxxxxxxxxxxxxxxx&export=download",
+ "docaudit":"https://drive.google.com/uc?id=xxxxxxxxxxxxxxxxxxxx&export=download",
+ "signer":"[array]"
+}
+
+Por cada firmante recibirás algo asi
+[
+ {
+  "name":"xxxxxx",
+  "phone":"xxxxx",
+  "nif":"xxxxxxx",
+  "email":"xxxxxx@gmail.com",
+  "status":"ACTIVO",
+  "compliance":"true/false",
+  "datesign":"2021-02-09 16:06:32"
+ }
+]
+```
 URL:
 https://app.firmafy.com/ApplicationProgrammingInterface.php
 
