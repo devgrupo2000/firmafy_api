@@ -228,7 +228,10 @@ POST
 | id_show | string | id_usuario |
 | url_webhook | string | url donde enviaremos la respuesta |
 
-### Funcion para invalidar solicitud de firma y desactivar links de los firmantes
+
+### Invalidar Solicitud de Firma
+
+Función para invalidar solicitud de firma y desactivar links de los firmantes
 
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
 | -----------------| -------------- | --------------- | 
