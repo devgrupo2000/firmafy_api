@@ -199,8 +199,9 @@ Un ejemplo de la estructura que se devuelve es la siguiente:
  "docaudit":"https://drive.google.com/uc?id=xxxxxxxxxxxxxxxxxxxx&export=download",
  "signer":"[array]"
 }
-
-Por cada firmante recibirás algo asi
+```
+Por cada firmante recibirás algo así:
+```json
 [
  {
   "name":"xxxxxx",
@@ -239,7 +240,7 @@ Función para invalidar solicitud de firma y desactivar links de los firmantes
 | token  | string | (su token) |
 | csv | string | csv del documento |
  
- Ejemplo
+ Ejemplo:
  
 ```json
 {
