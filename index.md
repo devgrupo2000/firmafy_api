@@ -114,7 +114,7 @@ Valores posibles de "role": `PERSONA FISICA` , `PERSONA JURIDICA`
 
 *Importante - send_form: Indica que se trata de una plantilla de FORMULARIO, por lo que el firmante recibirá un formulario a rellenar.
 
-*Importante - name: Indica el nombre de la plantilla creada previamente ( si no se indica, las firmas van el lateral de todas las páginas )
+*Importante - template_name: Indica el nombre de la plantilla creada previamente ( si no se indica, las firmas van el lateral de todas las páginas )
 
 *Importante -  type_notifications: para poder notificar por sms , debe de tener SMS disponibles, de lo contrario se enviará por email.
 
