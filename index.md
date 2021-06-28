@@ -2,6 +2,7 @@
 
 La api de firmafy se ha planteado como una herramienta multiplataforma que permitirá a nuestros clientes la integración de nuestro servicio con sus sistemas, de manera que puedan enviar documentación a sus clientes, comprobar el estado de las firmas, y demás operaciones mediante una interfaz rápida, segura, y fácil de integrar.
 
+*Importante - Para otros idiomas diferentes a español , no traducir el nombre de los parámetros.
 
 
 ### Empezamos la integración: Login
@@ -96,7 +97,7 @@ Un ejemplo de ello puede verse a continuación:
 | signer | array | (array con los firmantes en json) |
 | pdf |  *CURLFile | (documento original a firmar) |
 | template_name |  string | (nombre plantilla) |
-| send_form |  bool | true/false) |
+| send_form |  bool | true/false) | 
 | id_show |  string | (id_usuario) |
 | type_notifications |  string | email,sms |
 | mail_notification |  bool | true/false |
@@ -104,21 +105,30 @@ Un ejemplo de ello puede verse a continuación:
 
 ###### Ejemplo signer:
 
-*Se puede optar por enviar el PDF  base64, en ese caso hay que sustuir el parámetro pdf por:
+*Hay varias opciones para enviar el PDF además de hacerlo por CURL
+- En base64:
 
 `pdf_base64` (string) PDF codificado en base64 y añadir
 
 `pdf_name` (string) Nombre del archivo
 
+- A través de una url pública:
+
+`pdf_url` (string) PDF codificado en base64 y añadir
+
+`pdf_name` (string) Nombre del archivo
+
 Valores posibles de "role": `PERSONA FISICA` , `PERSONA JURIDICA`
 
-*Importante - send_form: Indica que se trata de una plantilla de FORMULARIO, por lo que el firmante recibirá un formulario a rellenar.
+*Importante - send_form: Indica que se trata de una plantilla de FORMULARIO, por lo que el firmante recibirá un formulario a rellenar, de lo contrario false.
 
 *Importante - template_name: Indica el nombre de la plantilla creada previamente ( si no se indica, las firmas van el lateral de todas las páginas )
 
 *Importante -  type_notifications: para poder notificar por sms , debe de tener SMS disponibles, de lo contrario se enviará por email.
 
 *Importante - mail_notification: se omite enviar el enlace al cliente.
+
+*Importante - fecha_vencimiento: No incluir como parámetro si no se quiere fecha de vencimiento.
 
 Valores posibles de "cargo": `Administrador` , `Interesado`, `Empresario` etc...  (cualquier dato identificativo para el firmante).
 
