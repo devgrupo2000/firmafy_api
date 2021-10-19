@@ -244,7 +244,7 @@ Por cada firmante recibirás algo así:
 ]
 ```
 ## PROYECTO EN POSTMAN PARA CONSULTAR
-https://customerweb.com/firmafy/webhook.php
+https://www.postman.com/firmafy-app/workspace/test/request/7469087-51af45b7-55f2-4cd1-84c1-5f0cac883330
 
 
 ### Invalidar Solicitud de Firma
