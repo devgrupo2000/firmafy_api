@@ -188,6 +188,7 @@ Ejemplo de excepciones controladas:
 
 
 ### Consultar estado envío
+*CONSULTAR CON SOPORTE
 
 Agregar Respuesta Automática (Webhook)
 
@@ -208,8 +209,8 @@ Devuelve automáticamente la respuesta al final de proceso de firma. Indicando e
 | url_webhook  | string | url donde enviaremos la respuesta |
 
 ## Tipos de Evento:
-1 : Documento Firmado
-2 : Aviso de Firma Completada
+- 1 : Documento Firmado
+- 2 : Aviso de Firma Completada
 
 Un ejemplo de la estructura que se devuelve es la siguiente:
 
@@ -242,8 +243,9 @@ Por cada firmante recibirás algo así:
  }
 ]
 ```
+## PROYECTO EN POSTMAN PARA CONSULTAR
+https://customerweb.com/firmafy/webhook.php
 
-CONSULTAR CON SOPORTE
 
 ### Invalidar Solicitud de Firma
 
