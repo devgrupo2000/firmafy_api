@@ -193,6 +193,24 @@ Agregar Respuesta Automática (Webhook)
 
 Descripción:
 Devuelve automáticamente la respuesta al final de proceso de firma. Indicando el CSV del documento, rutas de descarga de documento firmado, ruta de descarga de auditoría e información de los firmantes.
+##### URL:
+`https://app.firmafy.com/ApplicationProgrammingInterface.php`
+##### Método:
+`POST`
+##### Parámetros:
+
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| -----------------| -------------- | --------------- | 
+| action   | string | addWebhook |
+| id_show   | string | identificador del usuario |
+| token  | string | token de inicio de sesion |
+| type | int | Tipo de evento al que se desea suscribir |
+| url_webhook  | string | url donde enviaremos la respuesta |
+
+## Tipos de Evento:
+1 : Documento Firmado
+2 : Aviso de Firma Completada
+
 Un ejemplo de la estructura que se devuelve es la siguiente:
 
 ```json
@@ -224,11 +242,6 @@ Por cada firmante recibirás algo así:
  }
 ]
 ```
-URL:
-https://app.firmafy.com/ApplicationProgrammingInterface.php
-
-Método:
-POST
 
 CONSULTAR CON SOPORTE
 
