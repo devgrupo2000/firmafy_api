@@ -259,7 +259,8 @@ data-postman-collection-url="entityId=7469087-c91f148d-d283-4798-ba1c-36ed95ffff
   }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
 </script>
  
-
+ 
+ 
 ### Invalidar Solicitud de Firma
 
 Función para invalidar solicitud de firma y desactivar links de los firmantes
