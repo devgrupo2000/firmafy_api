@@ -243,7 +243,7 @@ Por cada firmante recibirás algo así:
  }
 ]
 ```
-## PROYECTO EN POSTMAN PARA CONSULTAR
+## PROYECTO EN POSTMAN PARA CONSULTAR 
 
 <div class="postman-run-button"
 data-postman-action="collection/fork"
