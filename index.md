@@ -244,7 +244,6 @@ Por cada firmante recibirás algo así:
 ]
 ```
 ## PROYECTO EN POSTMAN PARA CONSULTAR
-https://www.postman.com/firmafy-app/workspace/test/request/7469087-51af45b7-55f2-4cd1-84c1-5f0cac883330
 
 <div class="postman-run-button"
 data-postman-action="collection/fork"
@@ -259,6 +258,7 @@ data-postman-collection-url="entityId=7469087-c91f148d-d283-4798-ba1c-36ed95ffff
     ));
   }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
 </script>
+
 
 
 ### Invalidar Solicitud de Firma
