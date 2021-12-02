@@ -196,8 +196,7 @@ Mismo procedimiento que el ejemplo anterior, salvo teniendo en cuenta que cambia
 | subject  | string | (Asunto del Email) |
 | message | string | (Cuerpo del Email) |
 
-*Tener en cuenta lo siguiente:
-Siempre que se envíe el parámetro 'template_name':null  se ubicarán las firmas en el lateral izquierdo.
+*Siempre que se envíe el parámetro 'template_name':null  se ubicarán las firmas en el lateral izquierdo.
 En caso de enviar el nombre de una plantilla: si existen los campos subject y message, van a tomar prioridad éstos sobre la el asunto y mensaje de la plantilla (el resto de valores no los sobreescribiremos).
 Si queréis seguir haciendo uso del asunto y mensaje de vuestra plantilla, simplemente no enviar los parámetros subject y message, o dejarlos vacíos.
 
