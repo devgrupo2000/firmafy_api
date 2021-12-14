@@ -92,51 +92,55 @@ Un ejemplo de ello puede verse a continuación:
 
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro | Obligatoriedad |
 | -----------------| -------------- | --------------- | --------------- | 
-| action   | string | request | *Obligatorio | 
-| token  | string | (su token) | *Obligatorio | 
-| signer | array | (array con los firmantes en json) | *Obligatorio ( Ver ejemplo Signer ) | 
-| pdf |  *CURLFile | (documento original a firmar) | *Obligatorio ( Diferentes tipos de envío ) | 
-| *template_name |  string | (nombre plantilla) | *Obligatorio | 
-| send_form |  bool | true/false) | *Obligatorio | 
-| id_show |  string | (id_usuario) | *Obligatorio | 
-| type_notifications |  string | email,sms | *Obligatorio | 
-| mail_notification |  bool | true/false | *Opcional | 
-| fecha_vencimiento | datetime | Y-m-d H:i:s | *Opcional | 
-| subject  | string | (Asunto del Email) | *Opcional (Sobreescribe el asunto del email del template) | 
-| message | string | (Cuerpo del Email) | *Opcional (Sobreescribe el cuerpo del email del template) | 
+| action   | string | request | **Obligatorio* | 
+| token  | string | (su token) | **Obligatorio* | 
+| signer | array | (array con los firmantes en json) | **Obligatorio ( Ver ejemplo Signer )* | 
+| pdf |  *CURLFile | (documento original a firmar) | **Obligatorio ( Diferentes tipos de envío )* | 
+| *template_name |  string | (nombre plantilla) | **Obligatorio* | 
+| send_form |  bool | true/false) | **Obligatorio* | 
+| id_show |  string | (id_usuario) | **Obligatorio* | 
+| type_notifications |  string | email,sms | **Obligatorio* | 
+| mail_notification |  bool | true/false | **Opcional* | 
+| fecha_vencimiento | datetime | Y-m-d H:i:s | **Opcional* | 
+| subject  | string | (Asunto del Email) | **Opcional* (Sobreescribe el asunto del email del template) | 
+| message | string | (Cuerpo del Email) | **Opcional* (Sobreescribe el cuerpo del email del template) | 
 
 
-*Hay varias opciones para enviar el PDF además de hacerlo por CURL
+##Parámetro PDF
+**Estas son otras opciones para el envío de PDF*
 
-- ## En base64:
+-  Enviar en base64:
 
 `pdf_base64` (string) PDF codificado en base64 y añadir
 
 `pdf_name` (string) Nombre del archivo
 
-- ## A través de una url pública:
+- Enviar a través de una url pública:
 
 `pdf_url` (string) PDF codificado en base64 y añadir
 
 `pdf_name` (string) Nombre del archivo
+##Opciones template_name
 
-*Importante - template_name: Indica el nombre de la plantilla creada previamente.
+**Importante* - template_name: Indica el nombre de la plantilla creada previamente.
 
-*Si se trabaja sin plantilla 'template_name': ""  se ubicarán las firmas en el lateral izquierdo.
+- Si se trabaja sin plantilla 'template_name': ""  se ubicarán las firmas en el lateral izquierdo.
 En caso de enviar el nombre de una plantilla: si existen los campos subject y message, van a tomar prioridad éstos sobre la el asunto y mensaje de la plantilla (el resto de valores no los sobreescribiremos).
 
-*Si queréis seguir haciendo uso del asunto y mensaje de vuestra plantilla, simplemente no enviar los parámetros subject y message, o dejarlos vacíos.
+- Si queréis seguir haciendo uso del asunto y mensaje de vuestra plantilla, simplemente no enviar los parámetros subject y message, o dejarlos vacíos.
 
-*Importante -  type_notifications: para poder notificar por sms , debe de tener SMS disponibles, de lo contrario se enviará por email.
+##Parámetros opcionales
 
-*Importante - mail_notification: se omite enviar desde Firmafy el enlace con el link de firma al cliente.
+- Importante -  type_notifications: para poder notificar por sms , debe de tener SMS disponibles, de lo contrario se enviará por email.
 
-*Importante - fecha_vencimiento: No incluir como parámetro si no se quiere fecha de vencimiento.
+- Importante - mail_notification: se omite enviar desde Firmafy el enlace con el link de firma al cliente.
 
-###### Ejemplo signer:
+- Importante - fecha_vencimiento: No incluir como parámetro si no se quiere fecha de vencimiento.
+
+##Ejemplo signer: 
 Valores posibles de "role": `PERSONA FISICA` , `PERSONA JURIDICA`
 
-A continuación se muestra un ejemplo con dos firmantes:
+**A continuación se muestra un ejemplo con dos firmantes:*
 
 ```json
 [
@@ -191,10 +195,10 @@ Ejemplo de excepciones controladas:
 `Número de páginas distinto al de la plantilla`
 - Si la plantilla no existe o el número de firmantes es superior al de la plantilla, el mensaje será `Plantilla no encontrada` 
 
-### Consultar estado envío
-*CONSULTAR CON SOPORTE
+#Consultar estado envío
+**CONSULTAR CON SOPORTE* - soporte@firmafy.com
 
-Agregar Respuesta Automática (Webhook)
+#Agregar Respuesta Automática (Webhook)
 
 Descripción:
 Devuelve automáticamente la respuesta al final de proceso de firma. Indicando el CSV del documento, rutas de descarga de documento firmado, ruta de descarga de auditoría e información de los firmantes.
@@ -247,26 +251,7 @@ Por cada firmante recibirás algo así:
  }
 ]
 ```
-## PROYECTO EN POSTMAN PARA CONSULTAR 
-
-<div class="postman-run-button"
-data-postman-action="collection/fork"
-data-postman-var-1="7469087-c91f148d-d283-4798-ba1c-36ed95fffff7"
-data-postman-collection-url="entityId=7469087-c91f148d-d283-4798-ba1c-36ed95fffff7&entityType=collection&workspaceId=cbf8dde0-f772-422a-a1ce-4d460e55043f"></div>
-<script type="text/javascript">
-  (function (p,o,s,t,m,a,n) {
-    !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
-    !o.getElementById(s+t) && o.getElementsByTagName("head")[0].appendChild((
-      (n = o.createElement("script")),
-      (n.id = s+t), (n.async = 1), (n.src = m), n
-    ));
-  }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
-</script>
-
-*Clonar Proyecto de Postman
- 
- 
-### Invalidar Solicitud de Firma
+#Invalidar Solicitud de Firma
 
 Función para invalidar solicitud de firma y desactivar links de los firmantes
 
@@ -285,3 +270,24 @@ Función para invalidar solicitud de firma y desactivar links de los firmantes
   "csv":"xXXXXXXXXXX"
 }
 ```
+
+#PROYECTO EN POSTMAN PARA CONSULTAR 
+
+<div class="postman-run-button"
+data-postman-action="collection/fork"
+data-postman-var-1="7469087-c91f148d-d283-4798-ba1c-36ed95fffff7"
+data-postman-collection-url="entityId=7469087-c91f148d-d283-4798-ba1c-36ed95fffff7&entityType=collection&workspaceId=cbf8dde0-f772-422a-a1ce-4d460e55043f"></div>
+<script type="text/javascript">
+  (function (p,o,s,t,m,a,n) {
+    !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
+    !o.getElementById(s+t) && o.getElementsByTagName("head")[0].appendChild((
+      (n = o.createElement("script")),
+      (n.id = s+t), (n.async = 1), (n.src = m), n
+    ));
+  }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
+</script>
+
+Clonar Proyecto de Postman*
+ 
+ 
+
