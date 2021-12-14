@@ -92,47 +92,53 @@ Un ejemplo de ello puede verse a continuación:
 
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
 | -----------------| -------------- | --------------- | 
-| action   | string | Solicitar_Firma |
-| token  | string | (su token) |
-| signer | array | (array con los firmantes en json) |
-| pdf |  *CURLFile | (documento original a firmar) |
-| template_name |  string | (nombre plantilla) |
-| send_form |  bool | true/false) | 
-| id_show |  string | (id_usuario) |
-| type_notifications |  string | email,sms |
-| mail_notification |  bool | true/false |
-| fecha_vencimiento | datetime | Y-m-d H:i:s |
+| action   | string | request | *Obligatorio
+| token  | string | (su token) | *Obligatorio
+| signer | array | (array con los firmantes en json) | *Obligatorio ( Ver ejemplo Signer )
+| pdf |  *CURLFile | (documento original a firmar) | *Obligatorio ( Diferentes tipos de envío )
+| *template_name |  string | (nombre plantilla) | *Obligatorio
+| send_form |  bool | true/false) | *Obligatorio
+| id_show |  string | (id_usuario) | *Obligatorio
+| type_notifications |  string | email,sms | *Obligatorio
 
-###### Ejemplo signer:
+| mail_notification |  bool | true/false | *Opcional 
+| fecha_vencimiento | datetime | Y-m-d H:i:s | *Opcional 
+| subject  | string | (Asunto del Email) | *Opcional (Sobreescribe el asunto del email del template)
+| message | string | (Cuerpo del Email) | *Opcional (Sobreescribe el cuerpo del email del template)
+
 
 *Hay varias opciones para enviar el PDF además de hacerlo por CURL
-- En base64:
+
+- ## En base64:
 
 `pdf_base64` (string) PDF codificado en base64 y añadir
 
 `pdf_name` (string) Nombre del archivo
 
-- A través de una url pública:
+- ## A través de una url pública:
 
 `pdf_url` (string) PDF codificado en base64 y añadir
 
 `pdf_name` (string) Nombre del archivo
 
-Valores posibles de "role": `PERSONA FISICA` , `PERSONA JURIDICA`
+*Importante - template_name: Indica el nombre de la plantilla creada previamente.
 
-*Importante - send_form: Indica que se trata de una plantilla de FORMULARIO, por lo que el firmante recibirá un formulario a rellenar, de lo contrario false.
+*Si se trabaja sin plantilla 'template_name': ""  se ubicarán las firmas en el lateral izquierdo.
+En caso de enviar el nombre de una plantilla: si existen los campos subject y message, van a tomar prioridad éstos sobre la el asunto y mensaje de la plantilla (el resto de valores no los sobreescribiremos).
 
-*Importante - template_name: Indica el nombre de la plantilla creada previamente ( si no se indica, las firmas van el lateral izquierdo de todas las páginas )
+*Si queréis seguir haciendo uso del asunto y mensaje de vuestra plantilla, simplemente no enviar los parámetros subject y message, o dejarlos vacíos.
 
 *Importante -  type_notifications: para poder notificar por sms , debe de tener SMS disponibles, de lo contrario se enviará por email.
 
-*Importante - mail_notification: se omite enviar el enlace al cliente.
+*Importante - mail_notification: se omite enviar desde Firmafy el enlace con el link de firma al cliente.
 
 *Importante - fecha_vencimiento: No incluir como parámetro si no se quiere fecha de vencimiento.
 
-Valores posibles de "cargo": `Administrador` , `Interesado`, `Empresario` etc...  (cualquier dato identificativo para el firmante).
+###### Ejemplo signer:
+Valores posibles de "role": `PERSONA FISICA` , `PERSONA JURIDICA`
 
 A continuación se muestra un ejemplo con dos firmantes:
+
 ```json
 [
   {
@@ -185,21 +191,6 @@ Ejemplo de excepciones controladas:
 - Si el número de páginas enviadas supera al de la plantilla creada, se obtendrá el mensaje 
 `Número de páginas distinto al de la plantilla`
 - Si la plantilla no existe o el número de firmantes es superior al de la plantilla, el mensaje será `Plantilla no encontrada` 
-
-### Solicitar firma con asunto del mensaje y cuerpo del mensaje determinado (SIN PLANTILLA)
-
-Mismo procedimiento que el ejemplo anterior, salvo teniendo en cuenta que cambia el nombre del action y se añaden dos parámetros:
-
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
-| -----------------| -------------- | --------------- | 
-| action   | string | request |
-| subject  | string | (Asunto del Email) |
-| message | string | (Cuerpo del Email) |
-
-*Siempre que se envíe el parámetro 'template_name':null  se ubicarán las firmas en el lateral izquierdo.
-En caso de enviar el nombre de una plantilla: si existen los campos subject y message, van a tomar prioridad éstos sobre la el asunto y mensaje de la plantilla (el resto de valores no los sobreescribiremos).
-Si queréis seguir haciendo uso del asunto y mensaje de vuestra plantilla, simplemente no enviar los parámetros subject y message, o dejarlos vacíos.
-
 
 ### Consultar estado envío
 *CONSULTAR CON SOPORTE
