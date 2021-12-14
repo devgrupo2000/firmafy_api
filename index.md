@@ -97,13 +97,11 @@ Un ejemplo de ello puede verse a continuación:
 | signer | array | (array con los firmantes en json) | **Obligatorio ( Ver ejemplo Signer )* | 
 | pdf |  *CURLFile | (documento original a firmar) | **Obligatorio ( Diferentes tipos de envío )* | 
 | *template_name |  string | (nombre plantilla) | **Obligatorio* | 
-| send_form |  bool | true/false) | **Obligatorio* | 
 | id_show |  string | (id_usuario) | **Obligatorio* | 
-| type_notifications |  string | email,sms | **Obligatorio* | 
 | mail_notification |  bool | true/false | **Opcional* | 
 | fecha_vencimiento | datetime | Y-m-d H:i:s | **Opcional* | 
-| subject  | string | (Asunto del Email) | **Opcional* (Sobreescribe el asunto del email del template) | 
-| message | string | (Cuerpo del Email) | **Opcional* (Sobreescribe el cuerpo del email del template) | 
+| subject  | string | Asunto del Email | **Opcional* (Sobreescribe el asunto del email del template) | 
+| message | string | Cuerpo del Email | **Opcional* (Sobreescribe el cuerpo del email del template) | 
 
 
 ##Parámetro PDF
@@ -131,11 +129,9 @@ En caso de enviar el nombre de una plantilla: si existen los campos subject y me
 
 ##Parámetros opcionales
 
-- Importante -  type_notifications: para poder notificar por sms , debe de tener SMS disponibles, de lo contrario se enviará por email.
+- Importante - mail_notification: **false* si se quiere omitir enviar desde Firmafy el enlace con el link de firma al cliente.
 
-- Importante - mail_notification: se omite enviar desde Firmafy el enlace con el link de firma al cliente.
-
-- Importante - fecha_vencimiento: No incluir como parámetro si no se quiere fecha de vencimiento.
+- Importante - fecha_vencimiento: **false* si no se quiere fecha de vencimiento.
 
 ##Ejemplo signer: 
 Valores posibles de "role": `PERSONA FISICA` , `PERSONA JURIDICA`
@@ -168,7 +164,7 @@ Valores posibles de "role": `PERSONA FISICA` , `PERSONA JURIDICA`
   } 
 ]
 ```
-
+#####**Importante -  type_notifications: para poder notificar por email y/o SMS (debe de tener SMS disponibles, de lo contrario se enviará por email.)*
 ##### Respuesta
 
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
@@ -238,6 +234,7 @@ Un ejemplo de la estructura que se devuelve es la siguiente:
 }
 ```
 Por cada firmante recibirás algo así:
+
 ```json
 [
  {
@@ -251,6 +248,7 @@ Por cada firmante recibirás algo así:
  }
 ]
 ```
+
 #Invalidar Solicitud de Firma
 
 Función para invalidar solicitud de firma y desactivar links de los firmantes
