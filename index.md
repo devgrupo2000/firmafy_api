@@ -90,21 +90,21 @@ Un ejemplo de ello puede verse a continuación:
 `POST`
 ##### Parámetros:
 
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
-| -----------------| -------------- | --------------- | 
-| action   | string | request | *Obligatorio
-| token  | string | (su token) | *Obligatorio
-| signer | array | (array con los firmantes en json) | *Obligatorio ( Ver ejemplo Signer )
-| pdf |  *CURLFile | (documento original a firmar) | *Obligatorio ( Diferentes tipos de envío )
-| *template_name |  string | (nombre plantilla) | *Obligatorio
-| send_form |  bool | true/false) | *Obligatorio
-| id_show |  string | (id_usuario) | *Obligatorio
-| type_notifications |  string | email,sms | *Obligatorio
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro | Obligatoriedad |
+| -----------------| -------------- | --------------- | --------------- | 
+| action   | string | request | *Obligatorio | 
+| token  | string | (su token) | *Obligatorio | 
+| signer | array | (array con los firmantes en json) | *Obligatorio ( Ver ejemplo Signer ) | 
+| pdf |  *CURLFile | (documento original a firmar) | *Obligatorio ( Diferentes tipos de envío ) | 
+| *template_name |  string | (nombre plantilla) | *Obligatorio | 
+| send_form |  bool | true/false) | *Obligatorio | 
+| id_show |  string | (id_usuario) | *Obligatorio | 
+| type_notifications |  string | email,sms | *Obligatorio | 
 
-| mail_notification |  bool | true/false | *Opcional 
-| fecha_vencimiento | datetime | Y-m-d H:i:s | *Opcional 
-| subject  | string | (Asunto del Email) | *Opcional (Sobreescribe el asunto del email del template)
-| message | string | (Cuerpo del Email) | *Opcional (Sobreescribe el cuerpo del email del template)
+| mail_notification |  bool | true/false | *Opcional | 
+| fecha_vencimiento | datetime | Y-m-d H:i:s | *Opcional | 
+| subject  | string | (Asunto del Email) | *Opcional (Sobreescribe el asunto del email del template) | 
+| message | string | (Cuerpo del Email) | *Opcional (Sobreescribe el cuerpo del email del template) | 
 
 
 *Hay varias opciones para enviar el PDF además de hacerlo por CURL
