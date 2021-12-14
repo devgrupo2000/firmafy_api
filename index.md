@@ -100,7 +100,6 @@ Un ejemplo de ello puede verse a continuación:
 | send_form |  bool | true/false) | *Obligatorio | 
 | id_show |  string | (id_usuario) | *Obligatorio | 
 | type_notifications |  string | email,sms | *Obligatorio | 
-
 | mail_notification |  bool | true/false | *Opcional | 
 | fecha_vencimiento | datetime | Y-m-d H:i:s | *Opcional | 
 | subject  | string | (Asunto del Email) | *Opcional (Sobreescribe el asunto del email del template) | 
