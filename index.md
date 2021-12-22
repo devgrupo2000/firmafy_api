@@ -69,7 +69,7 @@ id de usuario (id_show).
 ```json
     "data": {
         ...
-        "id_show": "25d122ba412fda5eed63730c9f8c25f3"
+        "id_show": "25x1x2bxxx2fdaxeedx3730x9f8cxxxx"
     }'
 ```
 
@@ -94,14 +94,15 @@ Un ejemplo de ello puede verse a continuación:
 | -----------------| -------------- | --------------- | --------------- | 
 | action   | string | request | **Obligatorio* | 
 | token  | string | (su token) | **Obligatorio* | 
-| signer | array | (array con los firmantes en json) | **Obligatorio ( Ver ejemplo Signer )* | 
+| signer | json | (array con los firmantes en json) | **Obligatorio ( Ver ejemplo Signer )* | 
 | pdf |  *CURLFile | (documento original a firmar) | **Obligatorio ( Diferentes tipos de envío )* | 
 | *template_name |  string | (nombre plantilla) | **Obligatorio* | 
 | id_show |  string | (id_usuario) | **Obligatorio* | 
 | mail_notification |  bool | true/false | **Opcional* | 
 | fecha_vencimiento | datetime | Y-m-d H:i:s | **Opcional* | 
 | subject  | string | Asunto del Email | **Opcional* (Sobreescribe el asunto del email del template) | 
-| message | string | Cuerpo del Email | **Opcional* (Sobreescribe el cuerpo del email del template) | 
+| cco | string | Indica los emails donde requiere enviar copia del documento firmado al finalizar el proceso (separados por punto y coma  ; )| **Opcional*  | 
+| signer_priority | bool | Activa la firma en orden | **Opcional*  | 
 
 
 ##Parámetro PDF
@@ -118,11 +119,12 @@ Un ejemplo de ello puede verse a continuación:
 `pdf_url` (string) PDF codificado en base64 y añadir
 
 `pdf_name` (string) Nombre del archivo
+
 ##Opciones template_name
 
 **Importante* - template_name: Indica el nombre de la plantilla creada previamente.
 
-- Si se trabaja sin plantilla 'template_name': ""  se ubicarán las firmas en el lateral izquierdo.
+- Si se trabaja sin plantilla 'template_name': "false"  se ubicarán las firmas en el lateral izquierdo.
 En caso de enviar el nombre de una plantilla: si existen los campos subject y message, van a tomar prioridad éstos sobre la el asunto y mensaje de la plantilla (el resto de valores no los sobreescribiremos).
 
 - Si queréis seguir haciendo uso del asunto y mensaje de vuestra plantilla, simplemente no enviar los parámetros subject y message, o dejarlos vacíos.
