@@ -67,7 +67,7 @@ El siguiente paso es obtener el id (id_show) sobre el que se va a hacer la solic
 
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
 | -----------------| -------------- | --------------- | 
-| action   | string | __Consultar______Cliente____Nif |
+| action   | string | Consultar_Cliente_Nif |
 | token  | string | (su token) |
 | cif | string | (su cif/dni) |
 
