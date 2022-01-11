@@ -206,7 +206,7 @@ Podemos utilizar una Plantilla creada en plataforma para que vía API podamos ut
 
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
 | -----------------| -------------- | --------------- | 
-| coordenadas | string  | <sup>3</sup> JSON con ubicación de firmas  | 
+|  <sup>3</sup> coordenadas | string  | JSON con ubicación de firmas  | 
 | subject  | string | Asunto del Email | 
 | message | string | Mensaje del Email | 
 | cco | string | Indica los emails donde requiere enviar copia del PDF firmado ( separados por ; )| 
