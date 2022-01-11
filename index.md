@@ -20,9 +20,10 @@ data-postman-collection-url="entityId=7469087-c91f148d-d283-4798-ba1c-36ed95ffff
   }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
 </script>
 
-
-
+   
+    
 # 1. OBTENER TOKEN
+
 En primer lugar para trabajar con la API es necesario obtener el token de acceso. Recomendamos antes de iniciar el proceso, ponerse en contacto con el equipo de soporte técnico de Firmafy a través del chat, para confirmar que se disponen de permisos de llamada.
 ##### Método:
 `POST`
