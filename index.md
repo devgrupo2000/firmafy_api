@@ -2,7 +2,6 @@
 
 La API de FIRMAFY se ha planteado como una herramienta multiplataforma que permitirá a nuestros clientes la integración de nuestro servicio con sus sistemas, de manera que puedan enviar documentación a sus clientes, comprobar el estado de las firmas, y demás operaciones mediante una interfaz rápida, segura, y fácil de integrar.
 
-**Importante** - Para otros idiomas diferentes a español , no traducir el nombre de los parámetros.
 
 Para realizar las pruebas de integración puedes apoyarte en nuestro proyecto de POSTMAN.
 
@@ -21,6 +20,9 @@ data-postman-collection-url="entityId=7469087-c91f148d-d283-4798-ba1c-36ed95ffff
 </script>
 
    
+**Importante** - Para otros idiomas diferentes a español , no traducir el nombre de los parámetros.
+
+
     
 # 1. OBTENER TOKEN
 
