@@ -1,29 +1,44 @@
-## Firmafy para desarrolladores
+## API FIRMAFY 
 
-La api de firmafy se ha planteado como una herramienta multiplataforma que permitirá a nuestros clientes la integración de nuestro servicio con sus sistemas, de manera que puedan enviar documentación a sus clientes, comprobar el estado de las firmas, y demás operaciones mediante una interfaz rápida, segura, y fácil de integrar.
+La API de FIRMAFY se ha planteado como una herramienta multiplataforma que permitirá a nuestros clientes la integración de nuestro servicio con sus sistemas, de manera que puedan enviar documentación a sus clientes, comprobar el estado de las firmas, y demás operaciones mediante una interfaz rápida, segura, y fácil de integrar.
 
-*Importante - Para otros idiomas diferentes a español , no traducir el nombre de los parámetros.
+**Importante** - Para otros idiomas diferentes a español , no traducir el nombre de los parámetros.
+
+Para realizar las pruebas de integración puedes apoyarte en nuestro proyecto de POSTMAN.
+
+<div class="postman-run-button"
+data-postman-action="collection/fork"
+data-postman-var-1="7469087-c91f148d-d283-4798-ba1c-36ed95fffff7"
+data-postman-collection-url="entityId=7469087-c91f148d-d283-4798-ba1c-36ed95fffff7&entityType=collection&workspaceId=cbf8dde0-f772-422a-a1ce-4d460e55043f"></div>
+<script type="text/javascript">
+  (function (p,o,s,t,m,a,n) {
+    !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
+    !o.getElementById(s+t) && o.getElementsByTagName("head")[0].appendChild((
+      (n = o.createElement("script")),
+      (n.id = s+t), (n.async = 1), (n.src = m), n
+    ));
+  }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
+</script>
 
 
-### Empezamos la integración: Login
 
-##### Descripción: 
-Lo primero que debemos obtener para comenzar a operar con la API de Firmafy es el token que nos autenticará en el sistema. 
-La validez del token será de 4 horas.
-
-Un ejemplo de ello puede verse a continuación:
+# 1. OBTENER TOKEN
+En primer lugar para trabajar con la API es necesario obtener el token de acceso. Recomendamos antes de iniciar el proceso, ponerse en contacto con el equipo de soporte técnico de Firmafy a través del chat, para confirmar que se disponen de permisos de llamada.
+##### Método:
+`POST`
 
 ##### URL:
 `https://app.firmafy.com/ApplicationProgrammingInterface.php`
-##### Método:
-`POST`
+
 ##### Parámetros:
 
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
 | -----------------| -------------- | --------------- | 
 | action   | string | login |
-| usuario  | string | (su usuario) |
-| password | string | (su clave) |
+| usuario  | string | (Usuario Firmafy) |
+| password | string | (Clave Firmafy) |
+
+
 
 ##### Respuesta
 
@@ -31,30 +46,28 @@ Un ejemplo de ello puede verse a continuación:
 | -----------------| -------------- | --------------- | 
 | error    | bool  | true/false |
 | data     | string| token |
+- Ejemplo de respuesta con **Login correcto**
 
 ```json
 {
     "error": false,
-    "data": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    "data": "xxxxxxxxxxxxxxxxTOKENxxxxxxxxxxxxxxxx"
 }
 ```
+# 2. OBTENER ID USUARIO
 
-### Obtener id usuario (id_show)
+El siguiente paso es obtener el id (id_show) sobre el que se va a hacer la solicitud de firma.
 
-##### Descripción: 
-Además de obtener el token que nos permitirá autenticarnos en futuras peticiones, necesitaremos saber cual es nuestro 
-id de usuario (id_show).
-
-
-##### URL:
-`https://app.firmafy.com/ApplicationProgrammingInterface.php`
 ##### Método:
 `POST`
+##### URL:
+`https://app.firmafy.com/ApplicationProgrammingInterface.php`
+
 ##### Parámetros:
 
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
 | -----------------| -------------- | --------------- | 
-| action   | string | Consultar_Cliente_Nif |
+| action   | string | __Consultar______Cliente____Nif |
 | token  | string | (su token) |
 | cif | string | (su cif/dni) |
 
@@ -64,116 +77,199 @@ id de usuario (id_show).
 | -----------------| -------------- | --------------- | 
 | error    | bool  | true/false |
 | message     | string| (mensaje que aporta información adicional) |
-| data     | Object| (información del usuario entre la que está su id_show) |
+| data     | Object| (información con el parámetro id_show ) |
+
+- Ejemplo de respuesta con **id devuelto correctamente**
 
 ```json
+	"error": false,
+	"message":"Cliente",
     "data": {
-        ...
+        
         "id_show": "25x1x2bxxx2fdaxeedx3730x9f8cxxxx"
-    }'
+    }
 ```
+# 3. SOLICITUD DE FIRMA
+Con el **Token** y el **id_show** ya se puede realizar la solicitud de firma. 
 
+Los parámetros **obligatorios** para realiar una solicitud de firma son los siguientes:
 
-### Solicitar firma
-
-##### Descripción: 
-Una vez estemos autenticados y hayamos obtenido nuestro token, podremos comenzar a solicitar las firmas de nuestros 
-clientes al documento que elijamos. Para ello, haremos uso de la plantilla previamente creada en
-[app.firmafy.com](https://app.firmafy.com), en la cual ya habremos indicado la posición de las firmas para el documento
-que nos interese enviar.
-
-Un ejemplo de ello puede verse a continuación:
+##### Método:
+`POST`
 
 ##### URL:
 `https://app.firmafy.com/ApplicationProgrammingInterface.php`
-##### Método:
-`POST`
+
+
 ##### Parámetros:
 
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro | Obligatoriedad |
-| -----------------| -------------- | --------------- | --------------- | 
-| action   | string | request | **Obligatorio* | 
-| token  | string | (su token) | **Obligatorio* | 
-| signer | json | (array con los firmantes en json) | **Obligatorio ( Ver ejemplo Signer )* | 
-| pdf |  *CURLFile | (documento original a firmar) | **Obligatorio ( Diferentes tipos de envío )* | 
-| *template_name |  string | (nombre plantilla) | **Obligatorio* | 
-| id_show |  string | (id_usuario) | **Obligatorio* | 
-| mail_notification |  bool | true/false | **Opcional* | 
-| fecha_vencimiento | datetime | Y-m-d H:i:s | **Opcional* | 
-| subject  | string | Asunto del Email | **Opcional* (Sobreescribe el asunto del email del template) | 
-| cco | string | Indica los emails donde requiere enviar copia del documento firmado al finalizar el proceso (separados por punto y coma  ; )| **Opcional*  | 
-| signer_priority | bool | Activa la firma en orden | **Opcional*  | 
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
+| -----------------| -------------- | --------------- |  
+| action   | string | request | 
+| token  | string | su token |
+| id_show |  string | id_show | 
+| <sup>1</sup>signer | string |  array de firmantes en jSON | 
+| <sup>2</sup>pdf |   CURLFile | documento original a firmar |
 
 
-##Parámetro PDF
-**Estas son otras opciones para el envío de PDF*
+#### <sup>1</sup> PARÁMETRO `signer` ( Array de Firmantes )
 
--  Enviar en base64:
-
-`pdf_base64` (string) PDF codificado en base64 y añadir
-
-`pdf_name` (string) Nombre del archivo
-
-- Enviar a través de una url pública:
-
-`pdf_url` (string) PDF codificado en base64 y añadir
-
-`pdf_name` (string) Nombre del archivo
-
-##Opciones template_name
-
-**Importante* - template_name: Indica el nombre de la plantilla creada previamente.
-
-- Si se trabaja sin plantilla 'template_name': "false"  se ubicarán las firmas en el lateral izquierdo.
-En caso de enviar el nombre de una plantilla: si existen los campos subject y message, van a tomar prioridad éstos sobre la el asunto y mensaje de la plantilla (el resto de valores no los sobreescribiremos).
-
-- Si queréis seguir haciendo uso del asunto y mensaje de vuestra plantilla, simplemente no enviar los parámetros subject y message, o dejarlos vacíos.
-
-##Parámetros opcionales
-
-- Importante - mail_notification: **false* si se quiere omitir enviar desde Firmafy el enlace con el link de firma al cliente.
-
-- Importante - fecha_vencimiento: **false* si no se quiere fecha de vencimiento.
-
-##Ejemplo signer: 
-Valores posibles de "role": `PERSONA FISICA` , `PERSONA JURIDICA`
-
-**A continuación se muestra un ejemplo con dos firmantes:*
+El parámetro signer contiene la estructura del o de los firmantes para los que se realiza la solcitiud de firma. Ha de contener aquellos datos necesarios para que Firmafy pueda garantizar la integridad del firmante. A continuación se muestra un **signer** de dos firmantes, uno como **Persona Física** y otro como **Persona Jurídica**.
 
 ```json
 [
   {
     "role": "PERSONA FISICA",
-    "nombre": "Jhon Smith",
+    "nombre": "Wence Criado",
     "nif": "12345678A",
-    "cargo": "Gerente",
-    "email": "prueba@gmail.com",
-    "telefono": 666666666,
+    "cargo": "Trabajador",
+    "email": "soporte@firmafy.com",
+    "telefono": 600000000,
     "empresa": "",
     "cif": "",
     "type_notifications": "email"
   },
   {
-    "role": "PERSONA FISICA",
-    "nombre": "Jhon Smith 2",
+    "role": "PERSONA JURIDICA",
+    "nombre": "Crismary Ramírez",
     "nif": "98765432B",
     "cargo": "Responsable",
-    "email": "prueba2@gmail.com",
+    "email": "hola@firmafy.com",
     "telefono": 777777777,
-    "empresa": "",
-    "cif": "",
+    "empresa": "FIRMAFY",
+    "cif": "B11111111",
     "type_notifications": "email,sms"
   } 
 ]
 ```
-#####**Importante -  type_notifications: para poder notificar por email y/o SMS (debe de tener SMS disponibles, de lo contrario se enviará por email.)*
-##### Respuesta
+Al igual que en la aplicación web, para realizar la solicitud de firma son obligatorios los datos personales: 
+
+| Nombre Parámetro | Valor Parámetro |
+| -----------------| -------------- | 
+| role    | PERSONA FISICA / PERSONA JURIDICA  | 
+| nombre     | Nombre Completo| 
+| nif     | DNI / NIE| 
+| cargo    | Etiqueta identificativa del firmante  | 
+| email     | Email para notificar al firmante| 
+| telefono     | Móvil del firmante donde recibe el OTP| 
+| empresa    | Nombre de empresa ( Si es P. JURÍDICA )  | 
+| cif     | Cif Empresa ( Si es P. JURÍDICA) | 
+| type_notifications     | *Medio por el que recibe el aviso de firma (email y/o sms)| 
+
+
+*Hay que prestar **mucha atención** al parámetro ``type_notifications`` ya que la vía de notififación puede ser diferente para cada firmante, solo en caso de que se use ``"type_notifications" : "sms"`` el parámetro ``email`` puede ir vacío. Esta notificación es para avisar de la solicitud de firma y de la copia del documento firmado. **El OTP siempre se envíará por SMS**
+
+ 
+#### <sup>2</sup> PARÁMETRO ``pdf``
+
+Existen otras opciones además de CURl para enviar el documento **PDF**, para ello habría que omitir el parámetro ``pdf`` anterior y utilizar los siguientes en función del que se elija:
+
+-  Enviar en base64:
+ 
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
+| -----------------| -------------- | --------------- |  
+| pdf_base64   | string | PDF codificado en base64 | 
+| pdf_name  | string | Nombre del archivo |
+
+
+
+- Enviar a través de una url pública:
+
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
+| -----------------| -------------- | --------------- |  
+| pdf_url   | string | Url del documento PDF  | 
+| pdf_name  | string | Nombre del archivo |
+
+
+## 3.1 PARÁMETROS OPCIONALES A LA SOLICITUD DE FIRMA
+
+
+
+Con los parámetros anteriores ya tendríamos los elementos suficientes para hacer una solicitud de firma, aunque existen otros parámetros opcionales para personalizar la solicitud.
+
+A continuación se muestran todos los parámetros disponibles y en qué consiste cada uno.
+
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
+| -----------------| -------------- | --------------- | 
+| templante_name |  string | Nombre Plantilla |
+
+Podemos utilizar una Plantilla creada en plataforma para que vía API podamos utilizar el Asunto y el Mensaje del email que queremos que reciban nuestros firmantes, además de utilizar la ubicación de los elementos de firma en el documento.
+
+**MUY IMPORTANTE**, siempre que se utilice una PLANTILLA, el número de hojas del documento a enviar tiene que coincidir con el número de hojas de la PLANTILLA creada.
+
+**Si no se indica** ``template_name``, se utilizarán el Asunto y Mensaje predeterminados de Firmafy , además de ubicar la firmas en el lateral izquierdo de todas las páginas.
+
+**Existe la posibilidad de no utilizar Plantilla y de indicar manualmente la ubicación de las firmas**, además del asunto y el mensaje de la solicitud. Para ello utilizar los siguientes parámetros:
+
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
+| -----------------| -------------- | --------------- | 
+| coordenadas | string  | <sup>3</sup> JSON con ubicación de firmas  | 
+| subject  | string | Asunto del Email | 
+| message | string | Mensaje del Email | 
+| cco | string | Indica los emails donde requiere enviar copia del PDF firmado ( separados por ; )| 
+| signer_priority | bool | Activa la firma en orden | 
+| mail_notification |  bool | true/false (Omite enviar notificación de solicitud de firma) | 
+| fecha_vencimiento | datetime | Y-m-d H:i:s (Pasada la fecha, no se puede firmar) | 
+
+#### <sup>3</sup> PARÁMETRO ``coordenadas``
+
+Si se quiere indicar las coordenadas vía API de la ubicación de las firmas, hay que tener en cuenta las siguientes reglas:
+
+- Usamos tamaño A4, la escala debe ser medida en milímetros, siendo el máximo de medidas 210x297mm (x,y)
+- El punto que se toma como referencia corresponde a la esquina superior izquierda, desde allí comenzamos a dibujar.
+- El tamaño recomendado para el cuadro de firma es de 40x15mm (ancho x alto)
+- Se debe indicar el número del firmante siguiendo el mismo orden que en el array de firmantes.
+- La propiedad ``side`` puede ser 1 o 0 (ver ejemplo) e indica un giro de 90º en el cuadro de firma para la firma lateral.
+- Una página puede tener tantos cuadros de firma como se necesiten, incluso repetir el mismo firmante, siempre que se indique la posición correcta. 
+- En una página no es necesario incluir todos los firmantes si no es necesario.
+- Por cada página se debe construir un array que contenga los cuadros de firma de la misma. 
+- Se debe pasar un array para cada página.
+
+A continuación se muestra un ejemplo de un documento de **3 páginas**, la primera página tiene 2 cuadros de firma ubicados en el lateral y la tercera página sólo tiene un cuadro de firma del segundo firmante.
+
+```json
+[
+    [
+        {
+            "signer": 1,
+            "x": 5,
+            "y": 120,
+            "side": 1,
+            "width": 40,
+            "height": 10
+        },
+        {
+            "signer": 2,
+            "x": 5,
+            "y": 170,
+            "side": 1,
+            "width": 45,
+            "height": 15
+        }
+    ],
+    [],    
+    [ 
+        {
+            "signer": 2,
+            "x": 80,
+            "y": 210,
+            "side": 0,
+            "width": 45,
+            "height": 15
+        }
+    ]
+]
+
+```
+
+## 3.2 Ejemplo de respuesta de solicitud enviada correctamente
+
 
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
 | -----------------| -------------- | --------------- | 
 | error    | bool  | true/false |
 | message     | string| (mensaje que aporta información adicional) |
-| data     | string| (csv del documento) |
+| data     | string| (CSV del documento) |
 
 ```json
 {
@@ -182,28 +278,17 @@ Valores posibles de "role": `PERSONA FISICA` , `PERSONA JURIDICA`
     "data": "xxxxxxx"
 }
 ```
+# 4. Obtener el estado del envío a través del Webhook
 
-##### Excepciones
-Si se produjese alguna excepción, obtendríamos en la respuesta el valor de `error` a `true` y el valor de `message` 
-variará en función de la excepción producida, aportando información sobre la misma, para que podamos depurar dicho error.
+Para obtener los cambios de estado que se produzcan en la solicitudes de firma y así obtener el documento firmado y la auditoría, es necesario estar suscrito a los eventos de Webhook.
 
-Ejemplo de excepciones controladas:
-
-- Si el número de páginas enviadas supera al de la plantilla creada, se obtendrá el mensaje 
-`Número de páginas distinto al de la plantilla`
-- Si la plantilla no existe o el número de firmantes es superior al de la plantilla, el mensaje será `Plantilla no encontrada` 
-
-#Consultar estado envío
-**CONSULTAR CON SOPORTE* - soporte@firmafy.com
-
-#Agregar Respuesta Automática (Webhook)
-
-Descripción:
-Devuelve automáticamente la respuesta al final de proceso de firma. Indicando el CSV del documento, rutas de descarga de documento firmado, ruta de descarga de auditoría e información de los firmantes.
-##### URL:
-`https://app.firmafy.com/ApplicationProgrammingInterface.php`
 ##### Método:
 `POST`
+
+##### URL:
+`https://app.firmafy.com/ApplicationProgrammingInterface.php`
+
+
 ##### Parámetros:
 
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
@@ -211,14 +296,23 @@ Devuelve automáticamente la respuesta al final de proceso de firma. Indicando e
 | action   | string | addWebhook |
 | id_show   | string | identificador del usuario |
 | token  | string | token de inicio de sesion |
-| type | int | Tipo de evento al que se desea suscribir |
-| url_webhook  | string | url donde enviaremos la respuesta |
+| <sup>4</sup> type | int |  Tipo de evento al que se desea suscribir |
+| url_webhook  | string | url donde Firmafy enviará la respuesta |
 
-## Tipos de Evento:
-- 1 : Documento Firmado
-- 2 : Aviso de Firma Completada
 
-Un ejemplo de la estructura que se devuelve es la siguiente:
+
+#### <sup>4</sup> PARÁMETRO ``type``
+
+
+Hay 2 tipos de evento para suscribirse:
+
+- 1 : Documento Firmado ( Cuando todos los firmantes han firmado el documento )
+- 2 : Aviso de Firma Completada ( Cuando alguno de los firmantes ha firmado el documento )
+
+
+**No es necesario** suscribirse al evento por cada solicitud, ya que si la URL a notificar es la misma en todas las solicitudes, bastaría con hacerlo solo 1 vez.
+
+Un ejemplo de la estructura JSON que se devuelve es la siguiente:
 
 ```json
 {
@@ -235,7 +329,7 @@ Un ejemplo de la estructura que se devuelve es la siguiente:
  "signer":"[array]"
 }
 ```
-Por cada firmante recibirás algo así:
+Por cada firmante:
 
 ```json
 [
@@ -243,7 +337,7 @@ Por cada firmante recibirás algo así:
   "name":"xxxxxx",
   "phone":"xxxxx",
   "nif":"xxxxxxx",
-  "email":"xxxxxx@gmail.com",
+  "email":"soporte@firmafy.com",
   "status":"ACTIVO",
   "compliance":"true/false",
   "datesign":"2021-02-09 16:06:32"
@@ -251,15 +345,17 @@ Por cada firmante recibirás algo así:
 ]
 ```
 
-#Invalidar Solicitud de Firma
 
-Función para invalidar solicitud de firma y desactivar links de los firmantes
+# 5. Invalidar una Solicitud de Firma
+
+Esta acción desactiva los enlaces de los firmantes que haya pendientes de firma
+
 
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
 | -----------------| -------------- | --------------- | 
 | action   | string | invalidar_documento |
 | token  | string | (su token) |
-| csv | string | csv del documento |
+| csv | string | CSV del documento |
  
  Ejemplo:
  
@@ -271,23 +367,7 @@ Función para invalidar solicitud de firma y desactivar links de los firmantes
 }
 ```
 
-#PROYECTO EN POSTMAN PARA CONSULTAR 
 
-<div class="postman-run-button"
-data-postman-action="collection/fork"
-data-postman-var-1="7469087-c91f148d-d283-4798-ba1c-36ed95fffff7"
-data-postman-collection-url="entityId=7469087-c91f148d-d283-4798-ba1c-36ed95fffff7&entityType=collection&workspaceId=cbf8dde0-f772-422a-a1ce-4d460e55043f"></div>
-<script type="text/javascript">
-  (function (p,o,s,t,m,a,n) {
-    !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
-    !o.getElementById(s+t) && o.getElementsByTagName("head")[0].appendChild((
-      (n = o.createElement("script")),
-      (n.id = s+t), (n.async = 1), (n.src = m), n
-    ));
-  }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
-</script>
+### Recomendamos que para la integración de la API, se pongan en contacto con nuestro servicio de soporte técnico  ``soporte@firmafy.com`` y así formar parte de la comunidad de Dev's en nuestro canal de SLACK.
 
-Clonar Proyecto de Postman*
- 
- 
 
