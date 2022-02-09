@@ -194,7 +194,7 @@ A continuación se muestran todos los parámetros disponibles y en qué consiste
 
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
 | -----------------| -------------- | --------------- | 
-| templante_name |  string | Nombre Plantilla |
+| template_name |  string | Nombre Plantilla |
 
 Podemos utilizar una Plantilla creada en plataforma para que vía API podamos utilizar el Asunto y el Mensaje del email que queremos que reciban nuestros firmantes, además de utilizar la ubicación de los elementos de firma en el documento.
 
