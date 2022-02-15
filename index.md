@@ -315,7 +315,7 @@ Hay 2 tipos de evento para suscribirse:
 
 **No es necesario** suscribirse al evento por cada solicitud, ya que si la URL a notificar es la misma en todas las solicitudes, bastaría con hacerlo solo 1 vez.
 
-Un ejemplo de la estructura JSON que se devuelve es la siguiente:
+Un ejemplo del POST en HTTP que se devuelve es la siguiente:
 
 ```json
 {
