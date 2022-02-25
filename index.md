@@ -319,33 +319,32 @@ Un ejemplo del POST en HTTP que se devuelve es la siguiente:
 
 ```json
 {
- "type":"Firmar Documento",
- "daterequest":"2021-02-09 16:02:34",
- "datesign":"2021-02-09 16:07:25",
- "status":"FIRMADO",
- "subject":"Firmafy | Solicitud de Firma",
- "csv":"xxxxxxxxxxxxxx",
- "size":"35687",
- "sender":"SYSTEM TEST",
- "docsigned":"https://drive.google.com/uc?id=xxxxxxxxxxxxxxxxxxx&export=download",
- "docaudit":"https://drive.google.com/uc?id=xxxxxxxxxxxxxxxxxxxx&export=download",
+ "type":"Firmar Documento"(string),
+ "daterequest":"2021-02-09 16:02:34", (datetime)
+ "datesign":"2021-02-09 16:07:25", (datetime),
+ "status":"FIRMADO", (string)
+ "subject":"Firmafy | Solicitud de Firma", (string)
+ "csv":"xxxxxxxxxxxxxx", (string)
+ "size":"35687",(int)
+ "sender":"SYSTEM TEST",(string)
+ "filename":"Documento.pdf", (string)
+ "docoriginal":"https://drive.google.com/uc?id=xxxxxxxxxxxxxxxxxxx&export=download", (string)
+ "docsigned":"https://drive.google.com/uc?id=xxxxxxxxxxxxxxxxxxx&export=download", (string)
+ "docaudit":"https://drive.google.com/uc?id=xxxxxxxxxxxxxxxxxxxx&export=download", (string)
  "signer":"[array]"
+	 - Por cada firmante -:
+	[
+	 {
+	  "name":"xxxxxx",
+	  "phone":"xxxxx",
+	  "nif":"xxxxxxx",
+	  "email":"soporte@firmafy.com",
+	  "status":"ACTIVO",
+	  "compliance":"true/false",
+	  "datesign":"2021-02-09 16:06:32"
+	 }
+	]
 }
-```
-Por cada firmante:
-
-```json
-[
- {
-  "name":"xxxxxx",
-  "phone":"xxxxx",
-  "nif":"xxxxxxx",
-  "email":"soporte@firmafy.com",
-  "status":"ACTIVO",
-  "compliance":"true/false",
-  "datesign":"2021-02-09 16:06:32"
- }
-]
 ```
 
 
