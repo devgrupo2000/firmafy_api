@@ -332,7 +332,7 @@ Un ejemplo del POST en HTTP que se devuelve es la siguiente:
  "docsigned":"https://drive.google.com/uc?id=xxxxxxxxxxxxxxxxxxx&export=download", (string)
  "docaudit":"https://drive.google.com/uc?id=xxxxxxxxxxxxxxxxxxxx&export=download", (string)
  "signer":"[array]"
-	 - Por cada firmante -:
+	 - Por cada firmante -
 	[
 	 {
 	  "name":"xxxxxx",
