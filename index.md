@@ -202,7 +202,11 @@ Podemos utilizar una Plantilla creada en plataforma para que vía API podamos ut
 
 **Si no se indica** ``template_name``, se utilizarán el Asunto y Mensaje predeterminados de Firmafy , además de ubicar la firmas en el lateral izquierdo de todas las páginas.
 
-**Existe la posibilidad de no utilizar Plantilla y de indicar manualmente la ubicación de las firmas**, además del asunto y el mensaje de la solicitud. Para ello utilizar los siguientes parámetros:
+**Existe la posibilidad de no utilizar Plantilla y de indicar manualmente la ubicación de las firmas**, además del asunto y el mensaje de la solicitud.
+
+**Existe la posibilidad de indicar Plantilla para utilizar las coordenadas de los elementos** y además, pasar como parámetros el asunto y el mensaje (sobreescriben a los de la plantilla).
+
+Para ello utilizar los siguientes parámetros:
 
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
 | -----------------| -------------- | --------------- | 
