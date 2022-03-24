@@ -49,6 +49,7 @@ En primer lugar para trabajar con la API es necesario obtener el token de acceso
 | -----------------| -------------- | --------------- | 
 | error    | bool  | true/false |
 | data     | string| token |
+
 - Ejemplo de respuesta con **Login correcto**
 
 ```json
@@ -57,41 +58,12 @@ En primer lugar para trabajar con la API es necesario obtener el token de acceso
     "data": "xxxxxxxxxxxxxxxxTOKENxxxxxxxxxxxxxxxx"
 }
 ```
-# 2. OBTENER ID USUARIO
 
-El siguiente paso es obtener el id (id_show) sobre el que se va a hacer la solicitud de firma.
+# 2. OBTENER PUBLIC KEY
 
-##### Método:
-`POST`
-##### URL:
-`https://app.firmafy.com/ApplicationProgrammingInterface.php`
+El siguiente paso es obtener el public_key (id_show) para enviar solicitudes desde la API.
+Para usuarios registrados en Firmafy podrás ubicarlo en el menú "Configuración" de tu Panel Cliente. 
 
-##### Parámetros:
-
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
-| -----------------| -------------- | --------------- | 
-| action   | string | Consultar_Cliente_Nif |
-| token  | string | (su token) |
-| cif | string | (su cif/dni) |
-
-##### Respuesta
-
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
-| -----------------| -------------- | --------------- | 
-| error    | bool  | true/false |
-| message     | string| (mensaje que aporta información adicional) |
-| data     | Object| (información con el parámetro id_show ) |
-
-- Ejemplo de respuesta con **id devuelto correctamente**
-
-```json
-	"error": false,
-	"message":"Cliente",
-    "data": {
-        
-        "id_show": "25x1x2bxxx2fdaxeedx3730x9f8cxxxx"
-    }
-```
 # 3. SOLICITUD DE FIRMA
 Con el **Token** y el **id_show** ya se puede realizar la solicitud de firma. 
 
@@ -111,30 +83,26 @@ Los parámetros **obligatorios** para realiar una solicitud de firma son los sig
 | action   | string | request | 
 | token  | string | su token |
 | id_show |  string | id_show | 
-| <sup>1</sup>signer | string |  array de firmantes en jSON | 
-| <sup>2</sup>pdf |   CURLFile | documento original a firmar |
+| signer<sup>1</sup> | string |  array de firmantes en jSON | 
+| pdf <sup>2</sup> |   CURLFile | documento original a firmar |
 
 
 #### <sup>1</sup> PARÁMETRO `signer` ( Array de Firmantes )
 
-El parámetro signer contiene la estructura del o de los firmantes para los que se realiza la solcitiud de firma. Ha de contener aquellos datos necesarios para que Firmafy pueda garantizar la integridad del firmante. A continuación se muestra un **signer** de dos firmantes, uno como **Persona Física** y otro como **Persona Jurídica**.
+El parámetro signer contiene la estructura del o de los firmantes para los que se realiza la solcitiud de firma. Ha de contener aquellos datos necesarios para que Firmafy pueda garantizar la integridad del firmante. A continuación se muestra un array **signer** de dos firmantes, uno como **Persona Física** y otro como **Persona Jurídica**.
 
 ```json
 [
   {
-    "role": "PERSONA FISICA",
     "nombre": "Wence Criado",
     "nif": "12345678A",
     "cargo": "Trabajador",
     "email": "soporte@firmafy.com",
-    "telefono": 600000000,
-    "empresa": "",
-    "cif": "",
+    "telefono": 600000000, 
     "type_notifications": "email"
   },
   {
-    "role": "PERSONA JURIDICA",
-    "nombre": "Crismary Ramírez",
+    "nombre": "Fran Cortes",
     "nif": "98765432B",
     "cargo": "Responsable",
     "email": "hola@firmafy.com",
@@ -149,7 +117,6 @@ Al igual que en la aplicación web, para realizar la solicitud de firma son obli
 
 | Nombre Parámetro | Valor Parámetro |
 | -----------------| -------------- | 
-| role    | PERSONA FISICA / PERSONA JURIDICA  | 
 | nombre     | Nombre Completo| 
 | nif     | DNI / NIE| 
 | cargo    | Etiqueta identificativa del firmante  | 
@@ -165,14 +132,14 @@ Al igual que en la aplicación web, para realizar la solicitud de firma son obli
  
 #### <sup>2</sup> PARÁMETRO ``pdf``
 
-Existen otras opciones además de CURl para enviar el documento **PDF**, para ello habría que omitir el parámetro ``pdf`` anterior y utilizar los siguientes en función del que se elija:
+Existen otras opciones además de cURL para enviar el documento **PDF**, para ello habría que omitir el parámetro ``pdf`` anterior y utilizar los siguientes en función del que se elija:
 
 -  Enviar en base64:
  
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
 | -----------------| -------------- | --------------- |  
-| pdf_base64   | string | PDF codificado en base64 | 
 | pdf_name  | string | Nombre del archivo |
+| pdf_base64   | string | PDF codificado en base64 | 
 
 
 
@@ -180,8 +147,8 @@ Existen otras opciones además de CURl para enviar el documento **PDF**, para el
 
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
 | -----------------| -------------- | --------------- |  
-| pdf_url   | string | Url del documento PDF  | 
 | pdf_name  | string | Nombre del archivo |
+| pdf_url   | string | Url del documento PDF  | 
 
 
 ## 3.1 PARÁMETROS OPCIONALES A LA SOLICITUD DE FIRMA
@@ -303,7 +270,8 @@ Para obtener los cambios de estado que se produzcan en la solicitudes de firma y
 | action   | string | addWebhook |
 | id_show   | string | identificador del usuario |
 | token  | string | token de inicio de sesion |
-| <sup>4</sup> type | int |  Tipo de evento al que se desea suscribir |
+| type<sup>4</sup> | int |  Evento al que se desea suscribir |
+| method<sup>5</sup>  | int | Método de envío de datos |
 | url_webhook  | string | url donde Firmafy enviará la respuesta |
 
 
@@ -316,6 +284,11 @@ Hay 2 tipos de evento para suscribirse:
 - 1 : Documento Firmado ( Cuando todos los firmantes han firmado el documento )
 - 2 : Aviso de Firma Completada ( Cuando alguno de los firmantes ha firmado el documento )
 
+
+#### <sup>5</sup> PARÁMETRO ``method``
+
+- 1 : Array POST
+- 2 : JSON 
 
 **No es necesario** suscribirse al evento por cada solicitud, ya que si la URL a notificar es la misma en todas las solicitudes, bastaría con hacerlo solo 1 vez.
 
@@ -332,9 +305,9 @@ Un ejemplo del POST en HTTP que se devuelve es la siguiente:
  "size":"35687",(int)
  "sender":"SYSTEM TEST",(string)
  "filename":"Documento.pdf", (string)
- "docoriginal":"https://drive.google.com/uc?id=xxxxxxxxxxxxxxxxxxx&export=download", (string)
- "docsigned":"https://drive.google.com/uc?id=xxxxxxxxxxxxxxxxxxx&export=download", (string)
- "docaudit":"https://drive.google.com/uc?id=xxxxxxxxxxxxxxxxxxxx&export=download", (string)
+ "docoriginal": pdf, (multipart form-data)
+ "docsigned":  pdf, (multipart form-data)
+ "docaudit": pdf, (multipart form-data)
  "signer":"[array]"
 	 - Por cada firmante -
 	[
