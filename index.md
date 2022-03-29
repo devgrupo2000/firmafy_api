@@ -267,7 +267,7 @@ Para obtener los cambios de estado que se produzcan en la solicitudes de firma y
 
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
 | -----------------| -------------- | --------------- | 
-| action   | string | addWebhook |
+| action   | string | webhook |
 | id_show   | string | identificador del usuario |
 | token  | string | token de inicio de sesion |
 | type<sup>4</sup> | int |  Evento al que se desea suscribir |
@@ -323,6 +323,7 @@ Un ejemplo del POST en HTTP que se devuelve es la siguiente:
 	]
 }
 ```
+
 
 
 # 5. Invalidar una Solicitud de Firma
