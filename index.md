@@ -345,7 +345,7 @@ Esta acción desactiva los enlaces de los firmantes que haya pendientes de firma
   "token":"",
   "csv":"xXXXXXXXXXX"
 }
-```
+``` 
 
 
 ### Recomendamos que para la integración de la API, se pongan en contacto con nuestro servicio de soporte técnico  ``soporte@firmafy.com`` y así formar parte de la comunidad de Dev's en nuestro canal de SLACK.
