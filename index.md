@@ -182,7 +182,7 @@ Para ello utilizar los siguientes parámetros:
 | message | string | Mensaje del Email | 
 | cco | string | Indica los emails donde requiere enviar copia del PDF firmado ( separados por ; )| 
 | signer_priority | bool | Activa la firma en orden | 
-| mail_notification |  bool | true/false (Omite enviar notificación de solicitud de firma) | 
+| mail_notification |  bool | 1/0 (Omite enviar notificación de solicitud de firma, si es true por defecto no enviar parámetro) | 
 | fecha_vencimiento | datetime | Y-m-d H:i:s (Pasada la fecha, no se puede firmar) | 
 
 #### <sup>3</sup> PARÁMETRO ``coordenadas``
