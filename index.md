@@ -85,6 +85,7 @@ Los parámetros **obligatorios** para realiar una solicitud de firma son los sig
 | id_show |  string | id_show | 
 | signer<sup>1</sup> | string |  array de firmantes en jSON | 
 | pdf <sup>2</sup> |   CURLFile | documento original a firmar |
+| document_lang <sup>3</sup> |   string | Opcional - idioma de notificación |
 
 
 #### <sup>1</sup> PARÁMETRO `signer` ( Array de Firmantes )
@@ -149,6 +150,18 @@ Existen otras opciones además de cURL para enviar el documento **PDF**, para el
 | -----------------| -------------- | --------------- |  
 | pdf_name  | string | Nombre del archivo |
 | pdf_url   | string | Url del documento PDF  | 
+
+#### <sup>3</sup> PARÁMETRO ``document_lang``
+
+Si se quiere notificar bajo otro idioma diferente a Español ( por defecto, no hay que indicar el parámetro en español ), indicar como valor el idioma deseado disponible:
+
+| Valor Parámetro | Descripción | 
+| -----------------| -------------- |   
+| EN   | Inglés |
+| IT    | Italiano  | 
+| CA   | Catalán |
+| FF    | Francés  |
+| IT    | Italiano  | 
 
 
 ## 3.1 PARÁMETROS OPCIONALES A LA SOLICITUD DE FIRMA
