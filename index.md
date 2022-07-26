@@ -160,7 +160,7 @@ Si se quiere notificar bajo otro idioma diferente a Español ( por defecto, no h
 | EN   | Inglés |
 | IT    | Italiano  | 
 | CA   | Catalán |
-| FF    | Francés  |
+| FR    | Francés  |
 | IT    | Italiano  | 
 
 
