@@ -293,7 +293,7 @@ Los parámetros **obligatorios** para realizar un envío de email certificado so
 | attachment <sup>4.3</sup> |   file/array | Opcional - Archivo adjunto a la solicitud |
 
 
-###<sup>**4.1**</sup> Ejemplo de datos destinatario:
+## <sup>**4.1**</sup> Ejemplo de datos destinatario:
 
 ```json
 {
@@ -302,7 +302,7 @@ Los parámetros **obligatorios** para realizar un envío de email certificado so
   
 }
 ```
-###<sup>**4.2**</sup> Idioma Notificaciones:
+## <sup>**4.2**</sup> Idioma Notificaciones:
 
 ES - Por defecto (no hace falta indicarlo)
 
@@ -314,7 +314,7 @@ FR - Francés
 
 CA - Catalán
 
-###<sup>**4.3**</sup> Adjuntos:
+## <sup>**4.3**</sup> Adjuntos:
 
 - Opción 1
 
@@ -358,7 +358,7 @@ Los parámetros **obligatorios** para realizar un envío de SMS certificado son:
 | lang <sup>5.2</sup> |   char | Opcional - Idioma de la auditoría |
 
 
-###<sup>**5.1**</sup> Ejemplo de datos destinatario:
+## <sup>**5.1**</sup> Ejemplo de datos destinatario:
 
 ```json
 {
@@ -367,7 +367,7 @@ Los parámetros **obligatorios** para realizar un envío de SMS certificado son:
   "phone":612345678
 }
 ```
-###<sup>**5.2**</sup> Idioma Auditoría:
+## <sup>**5.2**</sup> Idioma Auditoría:
 
 ES - Por defecto (no hace falta indicarlo)
 
@@ -405,7 +405,7 @@ Para obtener los cambios de estado que se produzcan en la solicitudes, es necesa
 
 
 
-###<sup>6.1</sup> PARÁMETRO ``type``
+## <sup>6.1</sup> PARÁMETRO ``type``
 
 
 Hay 2 tipos de evento para suscribirse:
@@ -416,7 +416,7 @@ Hay 2 tipos de evento para suscribirse:
 
 **<sup>6.1.1</sup>** Firmafy escucha los códigos de respuesta HTTP de su servidor para determinar que la entrega del webhook es exitosa o no. Todas las notificaciones que reciban como respuesta un status http 4xx o 5xx se registran como fallidas. Firmafy intentará entregar nuevamente la notificación hasta en 2 ocasiones más, cada 30 minutos. 
 
-###<sup>6.2</sup> PARÁMETRO ``method``
+## <sup>6.2</sup> PARÁMETRO ``method``
 
 - 1 : Array POST
 - 2 : JSON 
