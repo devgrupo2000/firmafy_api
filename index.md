@@ -67,7 +67,7 @@ Para usuarios registrados en Firmafy podrás ubicarlo en el menú "Configuració
 # 3. SOLICITUD DE FIRMA
 Con el **Token** y el **id_show** ya se puede realizar la solicitud de firma. 
 
-Los parámetros **obligatorios** para realiar una solicitud de firma son los siguientes:
+Los parámetros **obligatorios** para realizar una solicitud de firma son los siguientes:
 
 ##### Método:
 `POST`
@@ -265,7 +265,123 @@ A continuación se muestra un ejemplo de un documento de **3 páginas**, la prim
     "data": "xxxxxxx"
 }
 ```
-# 4. Suscripción a eventos - Webhook
+
+# 4. Solicitud Email Certificado
+
+Requiere el **Token** y el **id_show** obtenidos previamente. 
+
+Los parámetros **obligatorios** para realizar un envío de email certificado son:
+
+##### Método:
+`POST`
+
+##### URL:
+`https://app.firmafy.com/ApplicationProgrammingInterface.php`
+
+
+##### Parámetros:
+
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
+| -----------------| -------------- | --------------- |  
+| action   | string | emailrequest | 
+| token  | string | su token |
+| id_show |  string | id_show | 
+| subject | string |  Asunto de email de notificación | 
+| body | string |  Cuerpo del Mensaje, puede contener código HTML | 
+| to <sup>4.1</sup>  |   string | Datos del destinatrio JSON Stringify |
+| lang <sup>4.2</sup> |   char | Opcional - Idioma de la solicitud, notificaciones y Auditoría.|
+| attachment <sup>4.3</sup> |   file/array | Opcional - Archivo adjunto a la solicitud |
+
+
+##<sup>**4.1**</sup> Ejemplo de datos destinatario:
+
+```json
+{
+  "name":"Jhon Smith",
+  "email": "soporte@firmafy.com"
+  
+}
+```
+##<sup>**4.2**</sup> Idioma Notificaciones:
+
+ES - Por defecto (no hace falta indicarlo)
+
+EN - Inglés
+
+IT - Italiano
+
+FR - Francés
+
+CA - Catalán
+
+##<sup>**4.3**</sup> Adjuntos:
+
+- Opción 1
+
+| Tipo Parámetro | Valor Parámetro | 
+| -------------- | --------------- |  
+| file   			| cUrl object | 
+
+- Opción 2
+
+| Tipo Parámetro | Valor Parámetro | 
+| -------------- | --------------- |  
+| array   			| ```[{"filename": "Doc1.pdf","url": "xxxxx"},{"filename": "Doc2.pdf","base64": "base64"}]```| 
+
+
+
+
+
+
+# 5. Solicitud SMS Certificado
+
+Requiere el **Token** y el **id_show** obtenidos previamente. 
+
+Los parámetros **obligatorios** para realizar un envío de SMS certificado son:
+
+##### Método:
+`POST`
+
+##### URL:
+`https://app.firmafy.com/ApplicationProgrammingInterface.php`
+
+
+##### Parámetros:
+
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
+| -----------------| -------------- | --------------- |  
+| action   | string | smsrequest | 
+| token  | string | su token |
+| id_show |  string | id_show | 
+| body | string |  Texto del mensaje, máximo 160 caracteres | 
+| to <sup>5.1</sup>  |   string | Datos del destinatrio JSON Stringify |
+| lang <sup>5.2</sup> |   char | Opcional - Idioma de la auditoría |
+
+
+##<sup>**5.1**</sup> Ejemplo de datos destinatario:
+
+```json
+{
+  "name":"Jhon Smith",
+  "country":34,
+  "phone":612345678
+}
+```
+##<sup>**5.2**</sup> Idioma Auditoría:
+
+ES - Por defecto (no hace falta indicarlo)
+
+EN - Inglés
+
+IT - Italiano
+
+FR - Francés
+
+CA - Catalán
+
+
+
+# 6. Suscripción a eventos - Webhook
 
 Para obtener los cambios de estado que se produzcan en la solicitudes, es necesario estar suscrito a los eventos de Webhook.
 
@@ -283,29 +399,31 @@ Para obtener los cambios de estado que se produzcan en la solicitudes, es necesa
 | action   | string | webhook |
 | id_show   | string | identificador del usuario |
 | token  | string | token de inicio de sesion |
-| type<sup>4</sup> | int |  Evento al que se desea suscribir |
-| method<sup>5</sup>  | int | Método de envío de datos |
+| type<sup>6.1</sup> | int |  Evento al que se desea suscribir |
+| method<sup>6.2</sup>  | int | Método de envío de datos |
 | url_webhook  | string | url donde Firmafy enviará la respuesta |
 
 
 
-#### <sup>4</sup> PARÁMETRO ``type``
+##<sup>6.1</sup> PARÁMETRO ``type``
 
 
 Hay 2 tipos de evento para suscribirse:
 
 - 1 : Documento Firmado ( Cuando todos los firmantes han firmado el documento )
 - 2 : Aviso de Firma Completada ( Cuando alguno de los firmantes ha firmado el documento )
-- 5 : Reitento de Entrega (Webhook Fallido)<sup>4.1</sup>
+- 5 : Reitento de Entrega (Webhook Fallido)<sup>6.1.1</sup>
 
-#### <sup>5</sup> PARÁMETRO ``method``
+**<sup>6.1.1</sup>** Firmafy escucha los códigos de respuesta HTTP de su servidor para determinar que la entrega del webhook es exitosa o no. Todas las notificaciones que reciban como respuesta un status http 4xx o 5xx se registran como fallidas. Firmafy intentará entregar nuevamente la notificación hasta en 2 ocasiones más, cada 30 minutos. 
+
+##<sup>6.2</sup> PARÁMETRO ``method``
 
 - 1 : Array POST
 - 2 : JSON 
 
 **No es necesario** suscribirse al evento por cada solicitud, ya que si la URL a notificar es la misma en todas las solicitudes, bastaría con hacerlo solo 1 vez.
 
-**<sup>4.1</sup>** Firmafy escucha los códigos de respuesta HTTP de su servidor para determinar que la entrega del webhook es exitosa o no. Todas las notificaciones que reciban como respuesta un status http 4xx o 5xx se registran como fallidas. Firmafy intentará entregar nuevamente la notificación hasta en 2 ocasiones más, cada 30 minutos. 
+
 
 Un ejemplo del POST en HTTP que se devuelve es la siguiente:
 
