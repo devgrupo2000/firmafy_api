@@ -296,7 +296,7 @@ Hay 2 tipos de evento para suscribirse:
 
 - 1 : Documento Firmado ( Cuando todos los firmantes han firmado el documento )
 - 2 : Aviso de Firma Completada ( Cuando alguno de los firmantes ha firmado el documento )
-- 5 : Reitento de Entrega (Webhook Fallido)**
+- 5 : Reitento de Entrega (Webhook Fallido)<sup>4.1</sup>
 
 #### <sup>5</sup> PARÁMETRO ``method``
 
@@ -305,7 +305,7 @@ Hay 2 tipos de evento para suscribirse:
 
 **No es necesario** suscribirse al evento por cada solicitud, ya que si la URL a notificar es la misma en todas las solicitudes, bastaría con hacerlo solo 1 vez.
 
-**Reitento de Webhook** Firmafy escucha los códigos de respuesta HTTP de su servidor para determinar que la entrega del webhook es exitosa o no. Todas las notificaciones que reciban como respuesta un status http 4xx o 5xx se registran como fallidas. Firmafy intentará entregar nuevamente la notificación hasta en 2 ocasiones más, cada 30 minutos. 
+**<sup>4.1</sup>** Firmafy escucha los códigos de respuesta HTTP de su servidor para determinar que la entrega del webhook es exitosa o no. Todas las notificaciones que reciban como respuesta un status http 4xx o 5xx se registran como fallidas. Firmafy intentará entregar nuevamente la notificación hasta en 2 ocasiones más, cada 30 minutos. 
 
 Un ejemplo del POST en HTTP que se devuelve es la siguiente:
 
