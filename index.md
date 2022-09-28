@@ -480,6 +480,37 @@ Esta acción desactiva los enlaces de los firmantes que haya pendientes de firma
 }
 ``` 
 
+# 6. Obtener consumo disponible
+
+Esta acción desactiva los enlaces de los firmantes que haya pendientes de firma
+
+
+| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| -----------------| -------------- | --------------- | 
+| action   | string | balance |
+| id_show   | string | identificador del usuario |
+| token  | string | token de inicio de sesion |
+ 
+ Ejemplo de Respuesta:
+ 
+```json
+{
+    "error": false,
+    "message": "Disponibles",
+    "credits": 50,
+    "sms": 25,
+    "mb": 20.331583,
+    "days": 23
+}
+``` 
+En caso de realizar una solicitud de firma a la API y no disponer de créditos dipsonibles , se devuelve un mensaje:
+
+```json
+{
+"error": true,
+    "message": "Se ha alcanzado el numero máximo de envios disponibles en su plan. En caso de querer adquirir un nuevo plan, visite www.firmafy.com/tarifas y pongase en contacto con su proveedor" 
+}
+``` 
 
 ### Recomendamos que para la integración de la API, se pongan en contacto con nuestro servicio de soporte técnico  ``soporte@firmafy.com`` y así formar parte de la comunidad de Dev's en nuestro canal de SLACK.
 
