@@ -7,8 +7,8 @@ Para realizar las pruebas de integración puedes apoyarte en nuestro proyecto de
 
 <div class="postman-run-button"
 data-postman-action="collection/fork"
-data-postman-var-1="7469087-c91f148d-d283-4798-ba1c-36ed95fffff7"
-data-postman-collection-url="entityId=7469087-c91f148d-d283-4798-ba1c-36ed95fffff7&entityType=collection&workspaceId=cbf8dde0-f772-422a-a1ce-4d460e55043f"></div>
+data-postman-var-1="7469087-fee30970-de3f-46c3-960b-9e411f7c8ea8"
+data-postman-collection-url="entityId=7469087-fee30970-de3f-46c3-960b-9e411f7c8ea8&entityType=collection&workspaceId=268a76e5-4e22-4830-b2c9-86883b09dbaf"></div>
 <script type="text/javascript">
   (function (p,o,s,t,m,a,n) {
     !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
