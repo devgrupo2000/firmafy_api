@@ -482,7 +482,7 @@ Esta acción desactiva los enlaces de los firmantes que haya pendientes de firma
 
 # 6. Obtener consumo disponible
 
-Esta acción desactiva los enlaces de los firmantes que haya pendientes de firma
+Esta endpoint permite obtener el consumo disponible
 
 
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
