@@ -482,7 +482,13 @@ Esta acción desactiva los enlaces de los firmantes que haya pendientes de firma
 
 # 6. Obtener consumo disponible
 
-Esta endpoint permite obtener el consumo disponible
+Este endpoint permite obtener el consumo disponible.
+
+##### Método:
+`POST`
+
+##### URL:
+`https://app.firmafy.com/ApplicationProgrammingInterface.php`
 
 
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
