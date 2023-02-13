@@ -461,7 +461,13 @@ Un ejemplo del POST en HTTP que se devuelve es la siguiente:
 
 # 5. Invalidar una Solicitud de Firma
 
-Esta acción desactiva los enlaces de los firmantes que haya pendientes de firma
+Esta acción desactiva los enlaces de los firmantes que haya pendientes de firma.
+
+##### Método:
+`POST`
+
+##### URL:
+`https://app.firmafy.com/ApplicationProgrammingInterface.php`
 
 
 | Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
