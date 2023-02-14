@@ -197,6 +197,7 @@ Para ello utilizar los siguientes parámetros:
 | signer_priority | bool | Activa la firma en orden | 
 | mail_notification |  bool | 1/0 (Omite enviar notificación de solicitud de firma, si es true por defecto no enviar parámetro) | 
 | fecha_vencimiento | datetime | Y-m-d H:i:s (Pasada la fecha, no se puede firmar) | 
+| reply-to | string | Por defecto email del emisor | 
 
 #### <sup>3</sup> PARÁMETRO ``coordenadas``
 
@@ -291,6 +292,7 @@ Los parámetros **obligatorios** para realizar un envío de email certificado so
 | to <sup>4.1</sup>  |   string | Datos del destinatrio JSON Stringify |
 | lang <sup>4.2</sup> |   char | Opcional - Idioma de la solicitud, notificaciones y Auditoría.|
 | attachment <sup>4.3</sup> |   file/array | Opcional - Archivo adjunto a la solicitud |
+| reply-to | string | Por defecto email del emisor | 
 
 
 ## <sup>**4.1**</sup> Ejemplo de datos destinatario:
