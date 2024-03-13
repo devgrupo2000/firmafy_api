@@ -7,6 +7,7 @@ Para realizar las pruebas de integración puedes apoyarte en nuestro proyecto de
 
 <div class="postman-run-button"
 data-postman-action="collection/fork"
+data-postman-visibility="public"
 data-postman-var-1="7469087-8fbe653e-b510-4c8d-93b8-719f40e154ca"
 data-postman-collection-url="entityId=7469087-8fbe653e-b510-4c8d-93b8-719f40e154ca&entityType=collection&workspaceId=268a76e5-4e22-4830-b2c9-86883b09dbaf"></div>
 <script type="text/javascript">
