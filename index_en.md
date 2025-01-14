@@ -1,9 +1,8 @@
 ## API FIRMAFY 
 
-ENNNNN La API de FIRMAFY se ha planteado como una herramienta multiplataforma que permitirá a nuestros clientes la integración de nuestro servicio con sus sistemas, de manera que puedan enviar documentación a sus clientes, comprobar el estado de las firmas, y demás operaciones mediante una interfaz rápida, segura, y fácil de integrar.
+The FIRMAFY API has been designed as a multiplatform tool that will allow our clients to integrate our service with their systems, so that they can send documentation to their clients, check the status of signatures, and other operations through a fast, secure, and easy-to-integrate interface.
 
-
-Para realizar las pruebas de integración puedes apoyarte en nuestro proyecto de POSTMAN.
+To carry out integration tests, you can rely on our POSTMAN project.
 
 <div class="postman-run-button"
 data-postman-action="collection/fork"
@@ -21,37 +20,37 @@ data-postman-collection-url="entityId=7469087-8fbe653e-b510-4c8d-93b8-719f40e154
 </script>
 
    
-**Importante** - Para otros idiomas diferentes a español , no traducir el nombre de los parámetros.
+**Important** - For languages ​​other than Spanish, do not translate the parameter names.
 
 
     
-# 1. OBTENER TOKEN
+# 1. GET TOKEN
 
-En primer lugar para trabajar con la API es necesario obtener el token de acceso. Recomendamos antes de iniciar el proceso, ponerse en contacto con el equipo de soporte técnico de Firmafy a través del chat, para confirmar que se disponen de permisos de llamada.
-##### Método:
+First of all, to work with the API you need to obtain the access token. We recommend that before starting the process, you contact the Firmafy technical support team via chat to confirm that you have access to the call permissions.
+##### Method:
 `POST`
 
 ##### URL:
 `https://app.firmafy.com/ApplicationProgrammingInterface.php`
 
-##### Parámetros:
+##### Parameters:
 
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| Parameter Name | Parameter Type | Parameter Value |
 | -----------------| -------------- | --------------- | 
 | action   | string | login |
-| usuario  | string | (Usuario Firmafy) |
-| password | string | (Clave Firmafy) |
+| usuario  | string | (User Firmafy) |
+| password | string | (Password Firmafy) |
 
 
 
 ##### Respuesta
 
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| Parameter Name | Parameter Type | Parameter Value |
 | -----------------| -------------- | --------------- | 
 | error    | bool  | true/false |
 | data     | string| token |
 
-- Ejemplo de respuesta con **Login correcto**
+- Example of response with **Correct login**
 
 ```json
 {
@@ -60,45 +59,45 @@ En primer lugar para trabajar con la API es necesario obtener el token de acceso
 }
 ```
 
-# 2. OBTENER PUBLIC KEY
+# 2. GET PUBLIC KEY
 
-El siguiente paso es obtener el public_key (id_show) para enviar solicitudes desde la API.
-Para usuarios registrados en Firmafy podrás ubicarlo en el menú "Configuración" de tu Panel Cliente. 
+The next step is to get the public_key (id_show) to send requests from the API.
+For registered users in Firmafy, you can find it in the "Settings" menu of your Client Panel.
 
-# 3. SOLICITUD DE FIRMA
-Con el **Token** y el **id_show** ya se puede realizar la solicitud de firma. 
+# 3. SIGNATURE REQUEST
+With the **Token** and the **public_key** you can now make the signature request.
 
-Los parámetros **obligatorios** para realizar una solicitud de firma son los siguientes:
+The **mandatory** parameters to make a signature request are the following:
 
-##### Método:
+##### Method:
 `POST`
 
 ##### URL:
 `https://app.firmafy.com/ApplicationProgrammingInterface.php`
 
 
-##### Parámetros:
+##### Parameters:
 
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
+| Parameter Name | Parameter Type | Parameter Value | 
 | -----------------| -------------- | --------------- |  
 | action   | string | request | 
-| token  | string | su token |
-| id_show |  string | id_show | 
-| signer<sup>1</sup> | string |  array de firmantes en jSON | 
-| pdf <sup>2</sup> |   CURLFile | documento original a firmar |
-| document_lang <sup>3</sup> |   string | Opcional - idioma de notificación |
+| token  | string | the token |
+| id_show |  string | public_key | 
+| signer<sup>1</sup> | string |  array of signers in jSON | 
+| pdf <sup>2</sup> |   CURLFile | original document to be signed |
+| document_lang <sup>3</sup> |   string | Optional - notification language |
 
 
-#### <sup>1</sup> PARÁMETRO `signer` ( Array de Firmantes )
+#### <sup>1</sup> PARAMETER `signer` ( array of signers )
 
-El parámetro signer contiene la estructura del o de los firmantes para los que se realiza la solcitiud de firma. Ha de contener aquellos datos necesarios para que Firmafy pueda garantizar la integridad del firmante. A continuación se muestra un array **signer** de dos firmantes, uno como **Persona Física** y otro como **Persona Jurídica**.
+The signer parameter contains the structure of the signer(s) for whom the signature request is being made. It must contain the data necessary for Firmafy to guarantee the integrity of the signer. Below is a **signer** array of two signers, one as a **Natural Person** and the other as a **Legal Entity**.
 
 ```json
 [
   {
     "nombre": "Wence Criado",
     "nif": "12345678A",
-    "cargo": "Trabajador",
+    "cargo": "Worker",
     "email": "soporte@firmafy.com",
     "telefono": 600000000, 
     "type_notifications": "email"
@@ -106,7 +105,7 @@ El parámetro signer contiene la estructura del o de los firmantes para los que 
   {
     "nombre": "Fran Cortes",
     "nif": "98765432B",
-    "cargo": "Responsable",
+    "cargo": "CEO",
     "email": "hola@firmafy.com",
     "telefono": 777777777,
     "empresa": "FIRMAFY",
@@ -117,104 +116,103 @@ El parámetro signer contiene la estructura del o de los firmantes para los que 
 ```
 Al igual que en la aplicación web, para realizar la solicitud de firma son obligatorios los datos personales: 
 
-| Nombre Parámetro | Valor Parámetro |
+| Parameter Name | Parameter Value |
 | -----------------| -------------- | 
-| nombre     | Nombre Completo| 
+| nombre     | Full name | 
 | nif     | DNI / NIE| 
-| cargo    | Etiqueta identificativa del firmante  | 
-| email     | Email para notificar al firmante| 
-| telefono     | Móvil del firmante donde recibe el OTP| 
-| empresa    | Nombre de empresa ( Si es P. JURÍDICA )  | 
-| cif     | Cif Empresa ( Si es P. JURÍDICA) | 
-| type_notifications     | *Medio por el que recibe el aviso de firma (email y/o sms)| 
+| cargo    | Signer's identification tag  | 
+| email | Email to notify the signer |
+| telefono     | Signer's mobile phone where the OTP is received | 
+| empresa    | Company name (If it is a LEGAL P.) |
+| cif     | Company Cif (If it is a LEGAL P.) |
+| type_notifications     | *Means by which you receive the signature notice (email and/or sms) |
 
 
-*Hay que prestar **mucha atención** al parámetro ``type_notifications`` ya que la vía de notififación puede ser diferente para cada firmante, solo en caso de que se use ``"type_notifications" : "sms"`` el parámetro ``email`` puede ir vacío. Esta notificación es para avisar de la solicitud de firma y de la copia del documento firmado. **El OTP siempre se envíará por SMS**
+*Pay **a lot of attention** to the ``type_notifications`` parameter since the notification path can be different for each signer. Only if ``"type_notifications" : "sms"`` is used, the ``email`` parameter can be empty. This notification is to notify of the signature request and the copy of the signed document. **The OTP will always be sent by SMS**
 
  
-#### <sup>2</sup> PARÁMETRO ``pdf``
+#### <sup>2</sup> PARAMETER ``pdf``
 
-Existen otras opciones además de cURL para enviar el documento **PDF**, para ello habría que omitir el parámetro ``pdf`` anterior y utilizar los siguientes en función del que se elija:
+There are other options besides cURL to send the **PDF** document, for this you would have to omit the previous ``pdf`` parameter and use the following ones depending on the one you choose:
 
--  Enviar en base64:
+- Send in base64:
  
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
+| Parameter Name | Parameter Type | Parameter Value | 
 | -----------------| -------------- | --------------- |  
-| pdf_name  | string | Nombre del archivo |
-| pdf_base64   | string | PDF codificado en base64 | 
+| pdf_name | string | File name |
+| pdf_base64 | string | Base64 encoded PDF |
 
 
 
-- Enviar a través de una url pública:
+- Send via public url:
 
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
+| Parameter Name | Parameter Type | Parameter Value | 
 | -----------------| -------------- | --------------- |  
-| pdf_name  | string | Nombre del archivo |
-| pdf_url   | string | Url del documento PDF  | 
+| pdf_name  | string | file name |
+| pdf_url   | string | PDF document URL  | 
 
-#### <sup>3</sup> PARÁMETRO ``document_lang``
+#### <sup>3</sup> PARAMETER ``document_lang``
 
-Si se quiere notificar bajo otro idioma diferente a Español ( por defecto, no hay que indicar el parámetro en español ), indicar como valor el idioma deseado disponible:
+If you want to notify in a language other than Spanish (by default, you do not have to indicate the PARAMETER in Spanish), indicate the desired available language as the value:
 
-| Valor Parámetro | Descripción | 
+| Parameter Value | Description | 
 | -----------------| -------------- |   
-| EN   | Inglés |
-| IT    | Italiano  | 
-| CA   | Catalán |
-| FR    | Francés  |
-| IT    | Italiano  | 
+| EN   | English |
+| IT    | Italian  | 
+| CA   | Catalan |
+| FR    | French  |
+| IT    | Italian  | 
 
 
-## 3.1 PARÁMETROS OPCIONALES A LA SOLICITUD DE FIRMA
+## 3.1 OPTIONAL PARAMETERS FOR THE SIGNATURE REQUEST
 
 
 
-Con los parámetros anteriores ya tendríamos los elementos suficientes para hacer una solicitud de firma, aunque existen otros parámetros opcionales para personalizar la solicitud.
+With the above Parameters we would already have enough elements to make a signature request, although there are other optional Parameters to customize the request.
 
-A continuación se muestran todos los parámetros disponibles y en qué consiste cada uno.
+Below are all the available Parameters and what each one consists of.
 
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
+| Parameter Name | Parameter Type | Parameter Value | 
 | -----------------| -------------- | --------------- | 
-| template_name |  string | Nombre Plantilla |
+| template_name |  string | Template Name |
 
-Podemos utilizar una Plantilla creada en plataforma para que vía API podamos utilizar el Asunto y el Mensaje del email que queremos que reciban nuestros firmantes, además de utilizar la ubicación de los elementos de firma en el documento.
+We can use a Template created on the platform so that via API we can use the Subject and Message of the email that we want our signers to receive, in addition to using the location of the signature elements in the document.
 
-**MUY IMPORTANTE**, siempre que se utilice una PLANTILLA, el número de hojas del documento a enviar tiene que coincidir con el número de hojas de la PLANTILLA creada.
+**VERY IMPORTANT**, whenever a TEMPLATE is used, the number of pages in the document to be sent must match the number of pages in the TEMPLATE created.
 
-**Si no se indica** ``template_name``, se utilizarán el Asunto y Mensaje predeterminados de Firmafy , además de ubicar la firmas en el lateral izquierdo de todas las páginas.
+**If you do not indicate** ``template_name``, the default Subject and Message from Firmafy will be used, in addition to placing the signatures on the left side of all pages.
 
-**Existe la posibilidad de no utilizar Plantilla y de indicar manualmente la ubicación de las firmas**, además del asunto y el mensaje de la solicitud.
+**There is the possibility of not using a Template and manually indicating the location of the signatures**, in addition to the subject and message of the request.
 
-**Existe la posibilidad de indicar Plantilla para utilizar las coordenadas de los elementos** y además, pasar como parámetros el asunto y el mensaje (sobreescriben a los de la plantilla).
+**There is the possibility of indicating a Template to use the coordinates of the elements** and also, passing the subject and message as Parameters (they overwrite those of the template).
 
-Para ello utilizar los siguientes parámetros:
+To do this, use the following Parameters:
 
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
+| Parameter Name | Parameter Type | Parameter Value | 
 | -----------------| -------------- | --------------- | 
-|  <sup>3</sup> coordenadas | string  | JSON con ubicación de firmas  | 
-| subject  | string | Asunto del Email | 
-| message | string | Mensaje del Email | 
-| cco | string | Indica los emails donde requiere enviar copia del PDF firmado ( separados por ; )| 
-| signer_priority | bool | Activa la firma en orden | 
-| mail_notification |  bool | 1/0 (Omite enviar notificación de solicitud de firma, si es true por defecto no enviar parámetro) | 
-| fecha_vencimiento | datetime | Y-m-d H:i:s (Pasada la fecha, no se puede firmar) | 
-| reply-to | string | Por defecto email del emisor | 
+|  <sup>3</sup> coordinates | string  | JSON with signature location | 
+| subject  | string | Email Subject | 
+| message | string | Email message | 
+| cco | string | Indicate the emails where you need to send a copy of the signed PDF (separated by ;)| 
+| signer_priority | bool | Activate the signature in order | 
+| mail_notification |  bool | 1/0 (Skip sending signature request notification, if true by default do not send PARAMETER) | 
+| fecha_vencimiento | datetime | Y-m-d H:i:s (After the date, you cannot sign) | 
+| reply-to | string | Default sender email | 
 
-#### <sup>3</sup> PARÁMETRO ``coordenadas``
+#### <sup>3</sup> PARAMETER ``coordinates``
 
-Si se quiere indicar las coordenadas vía API de la ubicación de las firmas, hay que tener en cuenta las siguientes reglas:
+If you want to indicate the coordinates via API of the location of the signatures, you must take into account the following rules:
 
-- Usamos tamaño A4, la escala debe ser medida en milímetros, siendo el máximo de medidas 210x297mm (x,y)
-- El punto que se toma como referencia corresponde a la esquina superior izquierda, desde allí comenzamos a dibujar.
-- El tamaño recomendado para el cuadro de firma es de 40x15mm (ancho x alto)
-- Se debe indicar el número del firmante siguiendo el mismo orden que en el array de firmantes.
-- La propiedad ``side`` puede ser 1 o 0 (ver ejemplo) e indica un giro de 90º en el cuadro de firma para la firma lateral.
-- Una página puede tener tantos cuadros de firma como se necesiten, incluso repetir el mismo firmante, siempre que se indique la posición correcta. 
-- En una página no es necesario incluir todos los firmantes si no es necesario.
-- Por cada página se debe construir un array que contenga los cuadros de firma de la misma. 
-- Se debe pasar un array para cada página.
+- We use A4 size, the scale must be measured in millimeters, the maximum measurements being 210x297mm (x,y)
+- The point that is taken as a reference corresponds to the upper left corner, from there we begin to draw.
+- The recommended size for the signature box is 40x15mm (width x height)
+- The number of the signer must be indicated following the same order as in the array of signers.
+- The ``side`` property can be 1 or 0 (see example) and indicates a 90º turn in the signature box for the side signature.
+- A page can have as many signature boxes as needed, even repeating the same signer, as long as the correct position is indicated.
+- On a page it is not necessary to include all the signers if it is not necessary.
+- For each page an array must be built that contains the signature boxes of the same. - An array must be passed for each page.
 
-A continuación se muestra un ejemplo de un documento de **3 páginas**, la primera página tiene 2 cuadros de firma ubicados en el lateral y la tercera página sólo tiene un cuadro de firma del segundo firmante.
+Below is an example of a **3-page** document, the first page has 2 signature boxes located on the side and the third page only has one signature box for the second signer.
 
 ```json
 [
@@ -251,52 +249,52 @@ A continuación se muestra un ejemplo de un documento de **3 páginas**, la prim
 
 ```
 
-## 3.2 Ejemplo de respuesta de solicitud enviada correctamente
+## 3.2 Example of a successfully sent request response
 
 
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| Parameter Name | Parameter Type | Parameter Value |
 | -----------------| -------------- | --------------- | 
 | error    | bool  | true/false |
-| message     | string| (mensaje que aporta información adicional) |
-| data     | string| (CSV del documento) |
+| message     | string| (message that provides additional information) |
+| data     | string| (Document CSV) |
 
 ```json
 {
     "error": false,
-    "message": "Documento Enviado",
+    "message": "Documento Enviado", 
     "data": "xxxxxxx"
 }
 ```
 
-# 4. Solicitud Email Certificado
+# 4. Certified Email Request
 
-Requiere el **Token** y el **id_show** obtenidos previamente. 
+Requires the **Token** and **id_show** obtained previously.
 
-Los parámetros **obligatorios** para realizar un envío de email certificado son:
+The **mandatory** Parameters to send a certified email are:
 
-##### Método:
+##### Method:
 `POST`
 
 ##### URL:
 `https://app.firmafy.com/ApplicationProgrammingInterface.php`
 
 
-##### Parámetros:
+##### Parameters:
 
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
+| Parameter Name | Parameter Type | Parameter Value | 
 | -----------------| -------------- | --------------- |  
 | action   | string | emailrequest | 
-| token  | string | su token |
-| id_show |  string | id_show | 
-| subject | string |  Asunto de email de notificación | 
-| body | string |  Cuerpo del Mensaje, puede contener código HTML | 
-| to <sup>4.1</sup>  |   string | Datos del destinatrio JSON Stringify |
-| lang <sup>4.2</sup> |   char | Opcional - Idioma de la solicitud, notificaciones y Auditoría.|
-| attachment <sup>4.3</sup> |   file/array | Opcional - Archivo adjunto a la solicitud |
-| reply-to | string | Por defecto email del emisor | 
+| token  | string | your token |
+| id_show |  string | public_key | 
+| subject | string | Notification email subject |
+| body | string | Message body, may contain HTML code |
+| to <sup>4.1</sup> | string | JSON Stringify recipient data |
+| lang <sup>4.2</sup> | char | Optional - Language of the request, notifications and Audit. |
+| attachment <sup>4.3</sup> | file/array | Optional - File attached to the request |
+| reply-to | string | Default sender email |
 
 
-## <sup>**4.1**</sup> Ejemplo de datos destinatario:
+## <sup>**4.1**</sup> Example of recipient data:
 
 ```json
 {
@@ -305,29 +303,29 @@ Los parámetros **obligatorios** para realizar un envío de email certificado so
   
 }
 ```
-## <sup>**4.2**</sup> Idioma Notificaciones:
+## <sup>**4.2**</sup> Notification Language:
 
-ES - Por defecto (no hace falta indicarlo)
+ES - Default (no need to specify)
 
-EN - Inglés
+EN - English
 
-IT - Italiano
+IT - Italian
 
-FR - Francés
+FR - French
 
-CA - Catalán
+CA - Catalan
 
-## <sup>**4.3**</sup> Adjuntos:
+## <sup>**4.3**</sup> Attachments:
 
-- Opción 1
+- Option 1
 
-| Tipo Parámetro | Valor Parámetro | 
+| Parameter Type | Parameter Value | 
 | -------------- | --------------- |  
 | file   			| cUrl object | 
 
-- Opción 2
+- Option 2
 
-| Tipo Parámetro | Valor Parámetro | 
+| Parameter Type | Parameter Value | 
 | -------------- | --------------- |  
 | array   			| ```[{"filename": "Doc1.pdf","url": "xxxxx"},{"filename": "Doc2.pdf","base64": "base64"}]```| 
 
@@ -336,11 +334,11 @@ CA - Catalán
 
 
 
-# 5. Solicitud SMS Certificado
+# 5. Certified SMS Request
 
-Requiere el **Token** y el **id_show** obtenidos previamente. 
+Requires the **Token** and **id_show** obtained previously.
 
-Los parámetros **obligatorios** para realizar un envío de SMS certificado son:
+The **mandatory** Parameters to send a certified SMS are:
 
 ##### Método:
 `POST`
@@ -349,19 +347,19 @@ Los parámetros **obligatorios** para realizar un envío de SMS certificado son:
 `https://app.firmafy.com/ApplicationProgrammingInterface.php`
 
 
-##### Parámetros:
+##### Parameters:
 
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro | 
+| Parameter Name | Parameter Type | Parameter Value | 
 | -----------------| -------------- | --------------- |  
 | action   | string | smsrequest | 
-| token  | string | su token |
-| id_show |  string | id_show | 
-| body | string |  Texto del mensaje, máximo 160 caracteres | 
-| to <sup>5.1</sup>  |   string | Datos del destinatrio JSON Stringify |
-| lang <sup>5.2</sup> |   char | Opcional - Idioma de la auditoría |
+| token  | string | your token |
+| id_show |  string | public_key | 
+| body | string |  Message text, maximum 160 characters |
+| to <sup>5.1</sup> | string | Recipient data JSON Stringify |
+| lang <sup>5.2</sup> | char | Optional - Audit language |
 
 
-## <sup>**5.1**</sup> Ejemplo de datos destinatario:
+## <sup>**5.1**</sup> Example of recipient data:
 
 ```json
 {
@@ -370,116 +368,114 @@ Los parámetros **obligatorios** para realizar un envío de SMS certificado son:
   "phone":612345678
 }
 ```
-## <sup>**5.2**</sup> Idioma Auditoría:
+## <sup>**5.2**</sup> Audit Language:
 
-ES - Por defecto (no hace falta indicarlo)
+ES - Default (no need to specify)
 
-EN - Inglés
+EN - English
 
-IT - Italiano
+IT - Italian
 
-FR - Francés
+FR - French
 
-CA - Catalán
+CA - Catalan
 
 
 
-# 6. Suscripción a eventos - Webhook
+# 6. Event Subscription - Webhook
 
-Para obtener los cambios de estado que se produzcan en la solicitudes, es necesario estar suscrito a los eventos de Webhook.
+To get the status changes that occur in the requests, it is necessary to be subscribed to the Webhook events.
 
-##### Método:
+##### Method:
 `POST`
 
 ##### URL:
 `https://app.firmafy.com/ApplicationProgrammingInterface.php`
 
 
-##### Parámetros:
+##### Parameters:
 
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| Parameter Name | Parameter Type | Parameter Value |
 | -----------------| -------------- | --------------- | 
 | action   | string | webhook |
-| id_show   | string | identificador del usuario |
-| token  | string | token de inicio de sesion |
-| type<sup>6.1</sup> | int |  Evento al que se desea suscribir |
-| method<sup>6.2</sup>  | int | Método de envío de datos |
-| url_webhook  | string | url donde Firmafy enviará la respuesta |
+| id_show   | string | public_key |
+| token  | string | your token |
+| type<sup>6.1</sup> | int | Event to subscribe to |
+| method<sup>6.2</sup> | int | Data sending method |
+| url_webhook | string | url where Firmafy will send the response |
 
 
 
-## <sup>6.1</sup> PARÁMETRO ``type``
+## <sup>6.1</sup> PARAMETER ``type``
 
 
-Hay 2 tipos de evento para suscribirse:
+There are 2 types of events to subscribe to:
 
-- 1 : Documento Firmado ( Cuando todos los firmantes han firmado el documento )
-- 2 : Aviso de Firma Completada ( Cuando alguno de los firmantes ha firmado el documento )
-- 5 : Reitento de Entrega (Webhook Fallido)<sup>6.1.1</sup>
+- 1 : Document Signed (When all signers have signed the document)
+- 2 : Signature Completed Notice (When any of the signers have signed the document)
+- 5 : Retry Delivery (Failed Webhook)<sup>6.1.1</sup>
 
-**<sup>6.1.1</sup>** Firmafy escucha los códigos de respuesta HTTP de su servidor para determinar que la entrega del webhook es exitosa o no. Todas las notificaciones que reciban como respuesta un status http 4xx o 5xx se registran como fallidas. Firmafy intentará entregar nuevamente la notificación hasta en 2 ocasiones más, cada 30 minutos. 
+**<sup>6.1.1</sup>** Firmafy listens to the HTTP response codes from its server to determine whether the webhook delivery is successful or not. All notifications that receive a 4xx or 5xx http status in response are recorded as failed. Firmafy will attempt to deliver the notification again up to 2 more times, every 30 minutes.
+## <sup>6.2</sup> PARAMETER ``method``
 
-## <sup>6.2</sup> PARÁMETRO ``method``
-
-- 1 : Array POST
+- 1 : POST array
 - 2 : JSON 
 
-**No es necesario** suscribirse al evento por cada solicitud, ya que si la URL a notificar es la misma en todas las solicitudes, bastaría con hacerlo solo 1 vez.
+**It is not necessary** to subscribe to the event for each request, since if the URL to be notified is the same in all requests, it would be enough to do it only once.
 
 
-
-Un ejemplo del POST en HTTP que se devuelve es la siguiente:
+An example of the HTTP POST that is returned is the following:
 
 ```json
 {
- "type":"Firmar Documento"(string),
+"type":"Document Signed"(string),
  "daterequest":"2021-02-09 16:02:34", (datetime)
  "datesign":"2021-02-09 16:07:25", (datetime),
- "status":"FIRMADO", (string)
- "subject":"Firmafy | Solicitud de Firma", (string)
- "csv":"xxxxxxxxxxxxxx", (string)
+ "status":"SIGNED", (string)
+ "subject":"Firmafy | Signature Request", (string)
+ "csv":"xxxxxxxxxxxxxxx", (string)
  "size":"35687",(int)
  "sender":"SYSTEM TEST",(string)
- "filename":"Documento.pdf", (string)
+ "filename":"Document.pdf", (string)
  "docoriginal": pdf, (multipart form-data)
- "docsigned":  pdf, (multipart form-data)
+ "docsigned": pdf, (multipart form-data)
  "docaudit": pdf, (multipart form-data)
  "signer":"[array]"
-	 - Por cada firmante -
-	[
-	 {
-	  "name":"xxxxxx",
-	  "phone":"xxxxx",
-	  "nif":"xxxxxxx",
-	  "email":"soporte@firmafy.com",
-	  "status":"ACTIVO",
-	  "compliance":"true/false",
-	  "datesign":"2021-02-09 16:06:32"
-	 }
-	]
+ - For each signatory -
+ [
+ {
+ "name":"xxxxxx",
+ "phone":"xxxxx",
+ "nif":"xxxxxxx",
+ "email":"soporte@firmafy.com",
+ "status":"ACTIVE",
+ "compliance":"true/false",
+ "datesign":"2021-02-09 16:06:32"
+ }
+ ]
 }
 ```
 
 
 
-# 5. Invalidar una Solicitud de Firma
+# 5. Invalidate a Signature Request
 
-Esta acción desactiva los enlaces de los firmantes que haya pendientes de firma.
+This action deactivates the links of the signers that are pending signature.
 
-##### Método:
+##### Method:
 `POST`
 
 ##### URL:
 `https://app.firmafy.com/ApplicationProgrammingInterface.php`
 
 
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| Parameter Name | Parameter Type | Parameter Value |
 | -----------------| -------------- | --------------- | 
 | action   | string | invalidar_documento |
-| token  | string | (su token) |
-| csv | string | CSV del documento |
+| token  | string | (your token) |
+| csv | string | Document CSV |
  
- Ejemplo:
+ Example:
  
 ```json
 {
@@ -489,36 +485,36 @@ Esta acción desactiva los enlaces de los firmantes que haya pendientes de firma
 }
 ``` 
 
-# 6. Obtener consumo disponible
+# 6. Get available consumption
 
-Este endpoint permite obtener el consumo disponible.
+This endpoint allows you to get the available consumption.
 
-##### Método:
+##### Method:
 `POST`
 
 ##### URL:
 `https://app.firmafy.com/ApplicationProgrammingInterface.php`
 
 
-| Nombre Parámetro | Tipo Parámetro | Valor Parámetro |
+| Parameter Name | Parameter Type | Parameter Value |
 | -----------------| -------------- | --------------- | 
 | action   | string | balance |
-| id_show   | string | identificador del usuario |
-| token  | string | token de inicio de sesion |
+| id_show   | string | public_key |
+| token  | string | your token |
  
- Ejemplo de Respuesta:
+ Sample Answer:
  
 ```json
 {
     "error": false,
-    "message": "Disponibles",
+    "message": "Disponibles", (Available)
     "credits": 50,
     "sms": 25,
     "mb": 20.331583,
     "days": 23
 }
 ``` 
-En caso de realizar una solicitud de firma a la API y no disponer de créditos dipsonibles , se devuelve un mensaje:
+If you make a signature request to the API and do not have available credits, a message is returned:
 
 ```json
 {
@@ -526,7 +522,8 @@ En caso de realizar una solicitud de firma a la API y no disponer de créditos d
     "message": "Se ha alcanzado el numero máximo de envios disponibles en su plan. En caso de querer adquirir un nuevo plan, visite www.firmafy.com/tarifas y pongase en contacto con su proveedor" 
 }
 ``` 
-
-### Recomendamos que para la integración de la API, se pongan en contacto con nuestro servicio de soporte técnico  ``soporte@firmafy.com`` y así formar parte de la comunidad de Dev's en nuestro canal de SLACK.
+The translated response in English would be: "The maximum number of shipments available in your plan has been reached. If you wish to purchase a new plan, please visit www.firmafy.com/tarifas and contact your provider."
+*
+### We recommend that for API integration, you contact our technical support service ``soporte@firmafy.com`` and thus become part of the Dev community on our SLACK channel.
 
 
